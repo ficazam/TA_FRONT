@@ -30,12 +30,17 @@ export const getAuthentication = createAsyncThunk<
 
     const token = await credentials.user.getIdToken(true);
 
-    const response = await fetch(process.env.EXPO_PUBLIC_BASE_API + "/users/login", {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-      method: "POST",
-    }).catch((error) =>
+    const response = await fetch(
+      process.env.EXPO_PUBLIC_BASE_API + "/users/login",
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({ userId: credentials.user.uid }),
+      }
+    ).catch((error) =>
       Promise.reject({
         type: AuthenticationErrorType.InvalidServerResponse,
         description: "Unable to validate session.",

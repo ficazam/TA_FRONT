@@ -1,7 +1,7 @@
 import { UserRole } from "@/core/enums/user-role.enum";
 import { useUserColor } from "@/hooks/useUserColor";
 import { useAppSelector } from "@/store/hooks";
-import { Stack } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import React from "react";
 import { Text, View } from "react-native";
 
@@ -20,7 +20,7 @@ const RootLayout = () => {
           marginTop: 75,
         }}
       >
-        {user.role.toLocaleUpperCase()} HOME
+        {user.role.toLocaleUpperCase()}
       </Text>
 
       <View
@@ -29,33 +29,36 @@ const RootLayout = () => {
           bottom: 0,
           height: "87%",
           width: "100%",
+          backgroundColor: "#fff",
+          borderTopRightRadius: 18,
+          borderTopLeftRadius: 18,
         }}
       >
         <Stack>
           <Stack.Screen
             name="(admin)"
             options={{ headerShown: false }}
-            redirect={user.role !== UserRole.Admin}
+            // redirect={user.role !== UserRole.Admin}
           />
           <Stack.Screen
             name="(principal)"
             options={{ headerShown: false }}
-            redirect={user.role !== UserRole.Principal}
+            // redirect={user.role !== UserRole.Principal}
           />
           <Stack.Screen
             name="(teacher)"
             options={{ headerShown: false }}
-            redirect={user.role !== UserRole.Teacher}
+            // redirect={user.role !== UserRole.Teacher}
           />
           <Stack.Screen
             name="(coordinator)"
             options={{ headerShown: false }}
-            redirect={user.role !== UserRole.Coordinator}
+            // redirect={user.role !== UserRole.Coordinator}
           />
           <Stack.Screen
             name="(inventory)"
             options={{ headerShown: false }}
-            redirect={user.role !== UserRole.Inventory}
+            // redirect={user.role !== UserRole.Inventory}
           />
         </Stack>
       </View>

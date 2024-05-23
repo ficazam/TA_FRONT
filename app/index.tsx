@@ -7,7 +7,7 @@ import { router } from "expo-router";
 import { useEffect } from "react";
 import { Pressable, Text, View } from "react-native";
 
-export default function HomeScreen() {
+const Login = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.userState);
 
@@ -33,7 +33,6 @@ export default function HomeScreen() {
         };
 
         dispatch(setUser(loggedInUser));
-        console.log(userInfo);
       }
     } catch (error) {
       console.error(error);
@@ -41,11 +40,8 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    console.log("change", user.role);
     if (user.role !== UserRole.Empty) {
-      console.log(user.name);
-
-      router.navigate("/explore");
+      router.replace(`/(app)`);
     }
   }, [user]);
 
@@ -74,4 +70,6 @@ export default function HomeScreen() {
       </Pressable>
     </View>
   );
-}
+};
+
+export default Login;

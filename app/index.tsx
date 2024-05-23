@@ -3,15 +3,22 @@ import { User } from "@/core/types/user.type";
 import { getAuthentication } from "@/store/features/api/authentication/auth-slice";
 import { setUser } from "@/store/features/user.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { router } from "expo-router";
-import { useEffect } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Redirect, router } from "expo-router";
+import { useEffect, useState } from "react";
+import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
-export default function HomeScreen() {
+const Login = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.userState);
 
+  if (user.role !== UserRole.Empty) {
+    return <Redirect href={"/(app)"} />;
+  }
+
   const handleLogin = async () => {
+    setLoading(true);
+
     try {
       const userInfo = await dispatch(
         getAuthentication({
@@ -33,21 +40,30 @@ export default function HomeScreen() {
         };
 
         dispatch(setUser(loggedInUser));
-        console.log(userInfo);
+        router.push("/(app)");
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    console.log("change", user.role);
-    if (user.role !== UserRole.Empty) {
-      console.log(user.name);
-
-      router.navigate("/explore");
-    }
-  }, [user]);
+  if (loading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#fff",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          paddingVertical: 250,
+        }}
+      >
+        <ActivityIndicator size={50} color={"#d3d3d3"} />
+      </View>
+    );
+  }
 
   return (
     <View
@@ -74,4 +90,6 @@ export default function HomeScreen() {
       </Pressable>
     </View>
   );
-}
+};
+
+export default Login;

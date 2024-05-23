@@ -7,7 +7,7 @@ import { router } from "expo-router";
 import { useEffect } from "react";
 import { Pressable, Text, View } from "react-native";
 
-export default function TabTwoScreen() {
+const PrincipalHome = () => {
   const { user } = useAppSelector((state) => state.userState);
   const dispatch = useAppDispatch();
 
@@ -54,3 +54,5 @@ export default function TabTwoScreen() {
     </View>
   );
 }
+
+export default PrincipalHome

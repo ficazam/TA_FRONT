@@ -3,24 +3,13 @@
  * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
  */
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+import { UserRole } from "@/core/enums/user-role.enum";
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
-};
+export const userColors = [
+  { role: UserRole.Admin, color: "#00008b" },
+  { role: UserRole.Principal, color: "#50c878" },
+  { role: UserRole.Teacher, color: "#ff1493" },
+  { role: UserRole.Inventory, color: "#ffbf00" },
+  { role: UserRole.Coordinator, color: "#49117c" },
+  { role: UserRole.Empty, color: "#5F5F5F" },
+];

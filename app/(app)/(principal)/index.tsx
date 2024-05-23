@@ -1,10 +1,7 @@
-import { UserRole } from "@/core/enums/user-role.enum";
 import { emptyUser } from "@/core/types/user.type";
 import { logout } from "@/store/features/api/authentication/auth-slice";
 import { setUser } from "@/store/features/user.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { router } from "expo-router";
-import { useEffect } from "react";
 import { Pressable, Text, View } from "react-native";
 
 const PrincipalHome = () => {
@@ -19,12 +16,6 @@ const PrincipalHome = () => {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    if (user.role === UserRole.Empty) {
-      router.navigate("/");
-    }
-  }, [user]);
 
   return (
     <View

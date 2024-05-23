@@ -22,7 +22,7 @@ const Login = () => {
     try {
       const userInfo = await dispatch(
         getAuthentication({
-          email: "felipeicaza@gmail.com",
+          email: "susanat@testschool.com",
           password: "Papitas123!",
         })
       ).unwrap();

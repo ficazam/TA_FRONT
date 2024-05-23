@@ -6,10 +6,10 @@
 import { UserRole } from "@/core/enums/user-role.enum";
 
 export const userColors = [
-  { role: UserRole.Admin, color: "#00008b" },
-  { role: UserRole.Principal, color: "#50c878" },
-  { role: UserRole.Teacher, color: "#ff1493" },
-  { role: UserRole.Inventory, color: "#ffbf00" },
-  { role: UserRole.Coordinator, color: "#49117c" },
-  { role: UserRole.Empty, color: "#5F5F5F" },
+  { role: UserRole.Admin, color: "#00008b", transparentColor: '#00008b88' },
+  { role: UserRole.Principal, color: "#50c878", transparentColor: '#50c87888' },
+  { role: UserRole.Teacher, color: "#ff1493", transparentColor: '#ff149388' },
+  { role: UserRole.Inventory, color: "#ffbf00", transparentColor: '#ffbf0088' },
+  { role: UserRole.Coordinator, color: "#49117c", transparentColor: '#49117c88' },
+  { role: UserRole.Empty, color: "#5F5F5F", transparentColor: '#5F5F5F88' },
 ];

@@ -9,7 +9,8 @@ export const useUserColor = (userRole: string) => {
   const [userColor, setUserColor] = useState<{
     role: UserRole;
     color: string;
-  }>({ role: UserRole.Empty, color: "" });
+    transparentColor: string;
+  }>({ role: UserRole.Empty, color: "", transparentColor: "" });
 
   useEffect(() => {
     const color = userColors.find((color) => color.role === userRole)!;

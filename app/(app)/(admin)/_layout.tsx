@@ -5,6 +5,7 @@ const AdminLayout = () => {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="newSchool" options={{ headerShown: false }} />
+      <Stack.Screen name="allSchools" options={{ headerShown: false }} />
     </Stack>
   );
 };

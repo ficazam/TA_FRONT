@@ -6,12 +6,10 @@ import { getAuthentication } from "@/store/features/api/authentication/auth-slic
 import { setUser } from "@/store/features/user.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Redirect, router } from "expo-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
-  Pressable,
-  SafeAreaView,
   Text,
   View,
 } from "react-native";
@@ -22,12 +20,27 @@ const Login = () => {
   const { user } = useAppSelector((state) => state.userState);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [loginError, setLoginError] = useState<string>("");
 
   if (user.role !== UserRole.Empty) {
     return <Redirect href={"/(app)"} />;
   }
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      setLoginError("Please complete all fields!");
+      return;
+    }
+
+    if (
+      !email.includes("@") ||
+      !email.includes(".") ||
+      email.split(".")[1].length < 2
+    ) {
+      setLoginError("Email isn't valid; please make sure it's a valid email!");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -50,8 +63,9 @@ const Login = () => {
         dispatch(setUser(loggedInUser));
         router.push("/(app)");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      setLoginError(error.description);
     } finally {
       setLoading(false);
     }
@@ -84,29 +98,40 @@ const Login = () => {
         paddingVertical: 250,
       }}
     >
-      <Text
-        style={{
-          color: "#5f5f5f",
-          fontSize: 32,
-          fontWeight: "semibold",
-          textAlign: "center",
-          marginVertical: 10,
-        }}
-      >
-        LOGIN
-      </Text>
       <View
         style={{
           borderStyle: "solid",
           borderRadius: 18,
           borderWidth: 1,
-          minHeight: 250,
+          minHeight: 450,
           padding: 10,
           minWidth: 350,
           justifyContent: "space-evenly",
           alignItems: "center",
         }}
       >
+        <Text
+          style={{
+            color: "#5f5f5f",
+            fontSize: 32,
+            fontWeight: "semibold",
+            textAlign: "center",
+          }}
+        >
+          LOGIN
+        </Text>
+        <View style={{ minHeight: 20 }}>
+          <Text
+            style={{
+              color: "#ff0000",
+              textAlign: "left",
+              fontWeight: "semibold",
+            }}
+          >
+            {loginError}
+          </Text>
+        </View>
+
         <InputTextComponent
           label="Email: "
           onChange={setEmail}

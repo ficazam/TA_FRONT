@@ -14,7 +14,7 @@ const InputTextComponent = (props: iTextInputProps) => {
     <SafeAreaView>
       <Text
         style={{
-          marginVertical: 5,
+          marginBottom: 5,
         }}
       >
         {props.label}

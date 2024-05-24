@@ -1,4 +1,3 @@
-import { UserRole } from "@/core/enums/user-role.enum";
 import { emptyUser } from "@/core/types/user.type";
 import { useUserColor } from "@/hooks/useUserColor";
 import { logout } from "@/store/features/api/authentication/auth-slice";

@@ -1,14 +1,14 @@
 import { useUserColor } from "@/hooks/useUserColor";
 import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { Image, ImageSourcePropType, Text, View } from "react-native";
 
-interface iCardProps {
-  icon: React.ReactNode;
-  title: string;
+interface iSchoolCardProps {
   link: string;
+  title: string;
+  image?: ImageSourcePropType;
 }
 
-const Card = (props: iCardProps) => {
+const SchoolCard = (props: iSchoolCardProps) => {
   const { userColor } = useUserColor();
 
   return (
@@ -20,7 +20,9 @@ const Card = (props: iCardProps) => {
         borderStyle: "solid",
         borderWidth: 1,
         borderRadius: 18,
-        minWidth: "20%",
+        minWidth: "80%",
+        minHeight: "20%",
+        marginVertical: 4,
       }}
     >
       <View
@@ -33,11 +35,13 @@ const Card = (props: iCardProps) => {
           paddingHorizontal: 25,
         }}
       >
-        <View>{props.icon}</View>
-        <Text style={{ marginTop: 10, color: "#fcfcfc" }}>{props.title}</Text>
+        <Image source={props.image} resizeMode="cover" style={{}} />
+        <Text style={{ fontSize: 20, marginTop: 10, color: "#fcfcfc" }}>
+          {props.title}
+        </Text>
       </View>
     </Link>
   );
 };
 
-export default Card;
+export default SchoolCard;

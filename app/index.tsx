@@ -1,5 +1,6 @@
 import Button from "@/components/input/Button";
 import InputTextComponent from "@/components/input/TextInput";
+import LoadingScreen from "@/components/loading/LoadingScreen";
 import { UserRole } from "@/core/enums/user-role.enum";
 import { User } from "@/core/types/user.type";
 import { getAuthentication } from "@/store/features/api/authentication/auth-slice";
@@ -7,12 +8,7 @@ import { setUser } from "@/store/features/user.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Redirect, router } from "expo-router";
 import { useState } from "react";
-import {
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Text,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Text, View } from "react-native";
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -72,19 +68,7 @@ const Login = () => {
   };
 
   if (loading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "#fff",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          paddingVertical: 250,
-        }}
-      >
-        <ActivityIndicator size={50} color={"#d3d3d3"} />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (

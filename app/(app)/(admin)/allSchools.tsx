@@ -1,5 +1,7 @@
 import SchoolCard from "@/components/admin/schoolCard/SchoolCard";
 import LoadingScreen from "@/components/loading/LoadingScreen";
+import UserPageLayout from "@/components/navigation/PageTitleNav";
+import { Colors } from "@/constants/Colors";
 import { ISchoolInfo } from "@/core/types/school.type";
 import { useGetAllSchoolsQuery } from "@/store/features/api/schools.slice";
 import { SimpleLineIcons } from "@expo/vector-icons";
@@ -20,30 +22,7 @@ const allSchools = () => {
   }, [query]);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "column",
-        backgroundColor: "#fcfcfc",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        paddingVertical: 0,
-      }}
-    >
-      <Link
-        href={"/(admin)"}
-        style={{
-          position: "absolute",
-          top: 10,
-          left: 20,
-        }}
-      >
-        <SimpleLineIcons name="arrow-left" size={24} color="#5F5F5F" />
-      </Link>
-      <Text style={{ fontSize: 32, fontWeight: "semibold", color: "#5f5f5f" }}>
-        View All Schools
-      </Text>
-
+    <UserPageLayout title="All Schools" route='/(principal)'>
       {!allSchools.length ? (
         <LoadingScreen />
       ) : (
@@ -52,7 +31,7 @@ const allSchools = () => {
             display: "flex",
             flexDirection: "column",
             height: "100%",
-            paddingVertical: 10
+            paddingVertical: 10,
           }}
         >
           <FlatList
@@ -67,7 +46,7 @@ const allSchools = () => {
           />
         </View>
       )}
-    </View>
+    </UserPageLayout>
   );
 };
 

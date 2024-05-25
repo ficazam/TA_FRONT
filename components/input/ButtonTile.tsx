@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { useUserColor } from "@/hooks/useUserColor";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
@@ -28,9 +29,11 @@ const ButtonTile = (props: iButtonTileProps) => {
     >
       <Pressable onPress={props.onPress} disabled={props.disabled}>
         {props.isLoading ? (
-          <ActivityIndicator size={20} color="#fcfcfc" />
+          <ActivityIndicator size={20} color={Colors.white} />
         ) : (
-          <Text style={{ fontSize: 32, color: "#fcfcfc" }}>{props.title}</Text>
+          <Text style={{ fontSize: 32, color: Colors.white }}>
+            {props.title}
+          </Text>
         )}
       </Pressable>
     </View>

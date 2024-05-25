@@ -3,6 +3,7 @@ import { useAppSelector } from "@/store/hooks";
 import { Redirect, Stack } from "expo-router";
 import Navigation from "@/components/navigation/Navigation";
 import { View } from "react-native";
+import { Colors } from "@/constants/Colors";
 
 const RootLayout = () => {
   const { user } = useAppSelector((state) => state.userState);
@@ -26,7 +27,7 @@ const RootLayout = () => {
           height: 20,
           borderTopLeftRadius: 18,
           borderTopRightRadius: 18,
-          backgroundColor: "#fcfcfc",
+          backgroundColor: Colors.white,
           marginTop: -20,
         }}
       />

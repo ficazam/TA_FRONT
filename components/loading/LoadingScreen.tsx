@@ -1,5 +1,5 @@
+import { Colors } from "@/constants/Colors";
 import { useUserColor } from "@/hooks/useUserColor";
-import { useAppSelector } from "@/store/hooks";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
 
@@ -10,7 +10,7 @@ const LoadingScreen = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: Colors.white,
         justifyContent: "space-evenly",
         alignItems: "center",
         paddingVertical: 250,

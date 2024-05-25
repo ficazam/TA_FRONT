@@ -1,5 +1,8 @@
+import ErrorText from "@/components/ErrorText";
 import ButtonTile from "@/components/input/ButtonTile";
 import InputTextComponent from "@/components/input/TextInput";
+import UserPageLayout from "@/components/navigation/PageTitleNav";
+import { Colors } from "@/constants/Colors";
 import {
   UserCreationPasswords,
   emptyPasswords,
@@ -29,7 +32,6 @@ const newSchool = () => {
   const [schoolError, setSchoolError] = useState<string>("");
   const [principalError, setPrincipalError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
   const [createNewSchool] = useCreateNewSchoolMutation();
 
   const runValidations = () => {
@@ -103,40 +105,8 @@ const newSchool = () => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "column",
-        backgroundColor: "#fcfcfc",
-        justifyContent: "flex-start",
-        alignItems: "center",
-      }}
-    >
-      <Link
-        href={"/(admin)"}
-        style={{
-          position: "absolute",
-          top: 10,
-          left: 20,
-        }}
-      >
-        <SimpleLineIcons name="arrow-left" size={24} color="#5F5F5F" />
-      </Link>
-      <Text style={{ fontSize: 32, fontWeight: "semibold", color: "#5f5f5f" }}>
-        Add New School
-      </Text>
-
-      <View style={{ minHeight: 20 }}>
-        <Text
-          style={{
-            color: "#ff0000",
-            textAlign: "left",
-            fontWeight: "semibold",
-          }}
-        >
-          {schoolError}
-        </Text>
-      </View>
+    <UserPageLayout title="Add New School" route="/(principal)">
+      <ErrorText error={schoolError} />
 
       <KeyboardAvoidingView
         enabled
@@ -166,85 +136,60 @@ const newSchool = () => {
                 fontSize: 20,
                 fontWeight: "semibold",
                 textAlign: "center",
-                color: "#5f5f5f",
+                color: Colors.black,
               }}
             >
               Principal's Information
             </Text>
 
-            <View style={{ minHeight: 20 }}>
-              <Text
-                style={{
-                  color: "#ff0000",
-                  textAlign: "center",
-                  fontWeight: "semibold",
-                }}
-              >
-                {principalError}
-              </Text>
-            </View>
+            <ErrorText error={principalError} />
 
-            <View style={{ marginTop: 20 }}>
-              <InputTextComponent
-                label="Principal's First Name: "
-                value={newPrincipal.name}
-                onChange={(value) =>
-                  //@ts-ignore
-                  setNewPrincipal({ ...newPrincipal, name: value })
-                }
-                placeholder="Name"
-              />
-            </View>
+            <InputTextComponent
+              label="Principal's First Name: "
+              value={newPrincipal.name}
+              onChange={(value) =>
+                setNewPrincipal({ ...newPrincipal, name: value })
+              }
+              placeholder="Name"
+            />
 
-            <View style={{ marginTop: 20 }}>
-              <InputTextComponent
-                label="Principal's Last Name: "
-                value={newPrincipal.surname}
-                onChange={(value) =>
-                  //@ts-ignore
-                  setNewPrincipal({ ...newPrincipal, surname: value })
-                }
-                placeholder="Surname"
-              />
-            </View>
+            <InputTextComponent
+              label="Principal's Last Name: "
+              value={newPrincipal.surname}
+              onChange={(value) =>
+                setNewPrincipal({ ...newPrincipal, surname: value })
+              }
+              placeholder="Surname"
+            />
 
-            <View style={{ marginTop: 20 }}>
-              <InputTextComponent
-                label="Principal's Email: "
-                value={newPrincipal.email}
-                onChange={(value) =>
-                  //@ts-ignore
-                  setNewPrincipal({ ...newPrincipal, email: value })
-                }
-                placeholder="Email"
-              />
-            </View>
+            <InputTextComponent
+              label="Principal's Email: "
+              value={newPrincipal.email}
+              onChange={(value) =>
+                setNewPrincipal({ ...newPrincipal, email: value })
+              }
+              placeholder="Email"
+            />
 
-            <View style={{ marginTop: 20 }}>
-              <InputTextComponent
-                label="Principal's Password: "
-                value={passwords.password}
-                onChange={(value) =>
-                  //@ts-ignore
-                  setPasswords({ ...passwords, password: value })
-                }
-                isPassword
-                placeholder=""
-              />
-            </View>
+            <InputTextComponent
+              label="Principal's Password: "
+              value={passwords.password}
+              onChange={(value) =>
+                setPasswords({ ...passwords, password: value })
+              }
+              isPassword
+              placeholder=""
+            />
 
-            <View style={{ marginTop: 20 }}>
-              <InputTextComponent
-                label="Confirm Principal's Password: "
-                value={passwords.confirmPassword}
-                onChange={(value) =>
-                  //@ts-ignore
-                  setPasswords({ ...passwords, confirmPassword: value })
-                }
-                isPassword
-                placeholder=""
-              />
-            </View>
+            <InputTextComponent
+              label="Confirm Principal's Password: "
+              value={passwords.confirmPassword}
+              onChange={(value) =>
+                setPasswords({ ...passwords, confirmPassword: value })
+              }
+              isPassword
+              placeholder=""
+            />
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -255,7 +200,7 @@ const newSchool = () => {
         isLoading={loading}
         disabled={loading}
       />
-    </View>
+    </UserPageLayout>
   );
 };
 

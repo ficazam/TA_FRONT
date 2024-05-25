@@ -9,7 +9,7 @@ import { Pressable, Text, View } from "react-native";
 
 const Navigation = () => {
   const { user } = useAppSelector((state) => state.userState);
-  const { userColor } = useUserColor(user.role);
+  const { userColor } = useUserColor();
   const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
@@ -30,7 +30,7 @@ const Navigation = () => {
         alignItems: "flex-start",
         backgroundColor: userColor.color,
         paddingTop: 75,
-        maxHeight: 150
+        maxHeight: 150,
       }}
     >
       <Text

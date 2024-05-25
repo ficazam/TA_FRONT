@@ -1,5 +1,4 @@
 import { useUserColor } from "@/hooks/useUserColor";
-import { useAppSelector } from "@/store/hooks";
 import React from "react";
 import { Pressable, Text } from "react-native";
 
@@ -9,8 +8,7 @@ interface iButtonProps {
 }
 
 const Button = (props: iButtonProps) => {
-  const { user } = useAppSelector((state) => state.userState);
-  const { userColor } = useUserColor(user.role);
+  const { userColor } = useUserColor();
 
   return (
     <Pressable

@@ -63,7 +63,7 @@ const newStaff = () => {
     try {
       const newUser: AddUser = {
         ...newStaff,
-        password: "Abc123!",
+        password: process.env.EXPO_PUBLIC_NEW_USER_PASSWORD!,
         role: staffRoles[chosenStaffRole].value,
         schoolId: user.schoolId,
         status: UserStatus.Unverified,

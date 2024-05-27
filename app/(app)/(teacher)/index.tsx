@@ -1,7 +1,10 @@
+import Card from "@/components/cards/Card";
+import { Colors } from "@/constants/Colors";
 import { emptyUser } from "@/core/types/user.type";
 import { logout } from "@/store/features/api/authentication/auth-slice";
 import { setUser } from "@/store/features/user.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { SimpleLineIcons } from "@expo/vector-icons";
 import { Pressable, Text, View } from "react-native";
 
 const TeacherHome = () => {
@@ -21,27 +24,25 @@ const TeacherHome = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "#fff",
+        flexDirection: "row",
+        backgroundColor: Colors.white,
         justifyContent: "space-evenly",
-        alignItems: "center",
-        paddingVertical: 250,
+        alignItems: "flex-start",
+        paddingVertical: 50,
       }}
     >
-      <Text>
-        Welcome, {user.role} {user.name}
-      </Text>
-      <Pressable
-        onPress={handleLogout}
-        style={{
-          backgroundColor: "#d3d3d3",
-          paddingHorizontal: 20,
-          paddingVertical: 12,
-          borderRadius: 8,
-          borderColor: "#fff",
-        }}
-      >
-        <Text>LOGOUT</Text>
-      </Pressable>
+      <Card
+        icon={
+          <SimpleLineIcons name="plus" size={24} color={Colors.white} />
+        }
+        title="New Order"
+        link="/newOrder"
+      />
+      <Card
+        icon={<SimpleLineIcons name="organization" size={24} color={Colors.white} />}
+        title="My Orders"
+        link="/myOrders"
+      />
     </View>
   );
 };

@@ -1,6 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import { useUserColor } from "@/hooks/useUserColor";
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
 interface iCardProps {

@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { useUserColor } from "@/hooks/useUserColor";
 import { Link } from "expo-router";
 import { Image, ImageSourcePropType, Text, View } from "react-native";

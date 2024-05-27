@@ -1,5 +1,4 @@
 import { Colors } from "@/constants/Colors";
-import { SetStateAction } from "react";
 import { SafeAreaView, Text, TextInput } from "react-native";
 
 interface iTextInputProps {

@@ -1,6 +1,7 @@
 import Button from "@/components/input/Button";
 import InputTextComponent from "@/components/input/TextInput";
 import LoadingScreen from "@/components/loading/LoadingScreen";
+import { Colors } from "@/constants/Colors";
 import { UserRole } from "@/core/enums/user-role.enum";
 import { User } from "@/core/types/user.type";
 import { getAuthentication } from "@/store/features/api/authentication/auth-slice";
@@ -96,7 +97,7 @@ const Login = () => {
       >
         <Text
           style={{
-            color: "#5f5f5f",
+            color: Colors.black,
             fontSize: 32,
             fontWeight: "semibold",
             textAlign: "center",

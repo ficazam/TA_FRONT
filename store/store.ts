@@ -30,7 +30,11 @@ export const store = configureStore({
     return getDefaultMiddleware({
       serializableCheck: false,
       immutableCheck: false,
-    }).concat(schoolSlice.middleware);
+    })
+      .concat(schoolSlice.middleware)
+      .concat(usersSlice.middleware)
+      .concat(orderSlice.middleware)
+      .concat(itemsSlice.middleware);
   },
 });
 

@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { useUserColor } from "@/hooks/useUserColor";
 import { Link } from "expo-router";
 import { Image, ImageSourcePropType, Text, View } from "react-native";
@@ -36,7 +37,7 @@ const SchoolCard = (props: iSchoolCardProps) => {
         }}
       >
         <Image source={props.image} resizeMode="cover" style={{}} />
-        <Text style={{ fontSize: 20, marginTop: 10, color: "#fcfcfc" }}>
+        <Text style={{ fontSize: 20, marginTop: 10, color: Colors.white }}>
           {props.title}
         </Text>
       </View>

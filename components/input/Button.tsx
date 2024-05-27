@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { useUserColor } from "@/hooks/useUserColor";
 import React from "react";
 import { Pressable, Text } from "react-native";
@@ -26,7 +27,7 @@ const Button = (props: iButtonProps) => {
         alignItems: "center",
       }}
     >
-      <Text style={{ color: "#fcfcfc" }}>{props.buttonTitle}</Text>
+      <Text style={{ color: Colors.white }}>{props.buttonTitle}</Text>
     </Pressable>
   );
 };

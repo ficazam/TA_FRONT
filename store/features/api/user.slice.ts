@@ -1,4 +1,3 @@
-import { UserRole } from "@/core/enums/user-role.enum";
 import { AddUser, User } from "@/core/types/user.type";
 import { RootState } from "@/store/store";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -46,11 +45,11 @@ export const usersSlice = createApi({
       }),
       getAllSchoolUsers: builder.query<
         { success: boolean; data: User[] },
-        { schoolId: string; userRole: UserRole }
+        { schoolId: string }
       >({
-        query: ({ schoolId, userRole }) => {
+        query: ({ schoolId }) => {
           return {
-            url: `users/school/${schoolId}/${userRole}`,
+            url: `users/school/${schoolId}`,
             method: "GET",
           };
         },

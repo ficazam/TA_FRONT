@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { emptyUser } from "@/core/types/user.type";
 import { useUserColor } from "@/hooks/useUserColor";
 import { logout } from "@/store/features/api/authentication/auth-slice";
@@ -37,7 +38,7 @@ const Navigation = () => {
         style={{
           fontSize: 32,
           fontWeight: "bold",
-          color: "#fcfcfc",
+          color: Colors.white,
           textAlign: "center",
         }}
       >
@@ -54,7 +55,7 @@ const Navigation = () => {
           top: 75,
         }}
       >
-        <SimpleLineIcons name="logout" size={24} color="#fcfcfc" />
+        <SimpleLineIcons name="logout" size={24} color={Colors.white} />
       </Pressable>
     </View>
   );

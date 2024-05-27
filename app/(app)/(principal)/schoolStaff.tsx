@@ -5,7 +5,7 @@ import { User } from "@/core/types/user.type";
 import { useGetAllSchoolUsersQuery } from "@/store/features/api/user.slice";
 import { useAppSelector } from "@/store/hooks";
 import { useEffect, useState } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 
 const schoolStaff = () => {
   const { user } = useAppSelector((state) => state.userState);

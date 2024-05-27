@@ -23,7 +23,7 @@ export const orderSlice = createApi({
       >({
         query: ({ schoolId }) => {
           return {
-            url: `${schoolId}`,
+            url: `/orders/${schoolId}`,
             method: "GET",
           };
         },
@@ -34,7 +34,7 @@ export const orderSlice = createApi({
       >({
         query: ({ schoolId, teacherId }) => {
           return {
-            url: `${schoolId}/teacher/${teacherId}`,
+            url: `orders/${schoolId}/teacher/${teacherId}`,
             method: "GET",
           };
         },
@@ -45,7 +45,7 @@ export const orderSlice = createApi({
       >({
         query: ({ schoolId, orderId }) => {
           return {
-            url: `${schoolId}/order/${orderId}`,
+            url: `orders/${schoolId}/order/${orderId}`,
             method: "GET",
           };
         },

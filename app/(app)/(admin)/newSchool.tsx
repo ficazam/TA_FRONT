@@ -98,7 +98,7 @@ const newSchool = () => {
       }).unwrap();
     } catch (error: any) {
       setSchoolError(error.description);
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }

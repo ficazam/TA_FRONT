@@ -8,6 +8,7 @@ import { UserRole } from "@/core/enums/user-role.enum";
 export const Colors = {
   white: "#fcfcfc",
   black: "#5f5f5f",
+  danger: "#a50000"
 };
 
 export const userColors = [

@@ -72,7 +72,6 @@ const newStaff = () => {
       const userItem = await addUser(newUser).unwrap();
 
       if (userItem) {
-        console.log(userItem);
         router.push("/(principal)");
       }
     } catch (error: any) {

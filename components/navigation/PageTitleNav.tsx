@@ -25,8 +25,14 @@ const UserPageLayout = (props: iUserPageLayoutProps) => {
         href={props.route}
         style={{
           position: "absolute",
-          top: 10,
-          left: 20,
+          top: 0,
+          left: 15,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          alignSelf: "center",
+          paddingHorizontal: 10,
+          paddingVertical: 10,
         }}
       >
         <SimpleLineIcons name="arrow-left" size={24} color={Colors.black} />

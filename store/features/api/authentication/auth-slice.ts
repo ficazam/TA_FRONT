@@ -125,7 +125,7 @@ export const authenticationSlice = createSlice({
             authorization: `Bearer ${state.user!.token}`,
           },
           method: "POST",
-        }).catch(console.log);
+        }).catch(console.error);
       }
 
       state.isLoading = false;

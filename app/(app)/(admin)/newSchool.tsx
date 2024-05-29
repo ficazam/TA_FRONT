@@ -1,6 +1,6 @@
 import ErrorText from "@/components/ErrorText";
 import ButtonTile from "@/components/input/ButtonTile";
-import InputTextComponent from "@/components/input/TextInput";
+import InputTextComponent from "@/components/input/InputTextComponent";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
 import { Colors } from "@/constants/Colors";
 import {
@@ -10,9 +10,6 @@ import {
 import { ISchoolInfo, emptySchool } from "@/core/types/school.type";
 import { AddUser, User, emptyUser } from "@/core/types/user.type";
 import { useCreateNewSchoolMutation } from "@/store/features/api/schools.slice";
-import { useAppDispatch } from "@/store/hooks";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import { Link } from "expo-router";
 import { useState } from "react";
 import {
   Dimensions,
@@ -165,6 +162,7 @@ const newSchool = () => {
             <InputTextComponent
               label="Principal's Email: "
               value={newPrincipal.email}
+              keyboardType="email-address"
               onChange={(value) =>
                 setNewPrincipal({ ...newPrincipal, email: value })
               }

@@ -1,5 +1,5 @@
 import Button from "@/components/input/Button";
-import InputTextComponent from "@/components/input/TextInput";
+import InputTextComponent from "@/components/input/InputTextComponent";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import { Colors } from "@/constants/Colors";
 import { UserRole } from "@/core/enums/user-role.enum";
@@ -121,6 +121,7 @@ const Login = () => {
           label="Email: "
           onChange={setEmail}
           placeholder="Your email"
+          keyboardType="email-address"
           value={email}
         />
         <InputTextComponent

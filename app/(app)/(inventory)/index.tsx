@@ -1,47 +1,39 @@
-import { emptyUser } from "@/core/types/user.type";
-import { logout } from "@/store/features/api/authentication/auth-slice";
-import { setUser } from "@/store/features/user.slice";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { Pressable, Text, View } from "react-native";
+import Card from "@/components/cards/Card";
+import { Colors } from "@/constants/Colors";
+import { SimpleLineIcons } from "@expo/vector-icons";
+import { View } from "react-native";
 
 const InventoryHome = () => {
-  const { user } = useAppSelector((state) => state.userState);
-  const dispatch = useAppDispatch();
-
-  const handleLogout = async () => {
-    try {
-      dispatch(logout());
-      dispatch(setUser(emptyUser));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <View
       style={{
         flex: 1,
-        backgroundColor: "#fff",
+        flexDirection: "row",
+        backgroundColor: Colors.white,
         justifyContent: "space-evenly",
-        alignItems: "center",
-        paddingVertical: 250,
+        alignItems: "flex-start",
+        flexWrap: 'wrap',
+        rowGap: 20,
+        paddingVertical: 50,
       }}
     >
-      <Text>
-        Welcome, {user.role} {user.name}
-      </Text>
-      <Pressable
-        onPress={handleLogout}
-        style={{
-          backgroundColor: "#d3d3d3",
-          paddingHorizontal: 20,
-          paddingVertical: 12,
-          borderRadius: 8,
-          borderColor: "#fff",
-        }}
-      >
-        <Text>LOGOUT</Text>
-      </Pressable>
+      <Card
+        icon={
+          <SimpleLineIcons name="magnifier" size={24} color={Colors.white} />
+        }
+        title="View Inventory"
+        link="/inventory"
+      />
+      <Card
+        icon={<SimpleLineIcons name="organization" size={24} color={Colors.white} />}
+        title="View Orders"
+        link="/orders"
+      />
+      {/* <Card
+        icon={<SimpleLineIcons name="plus" size={24} color={Colors.white} />}
+        title="Add Item"
+        link="/newItem"
+      /> */}
     </View>
   );
 };

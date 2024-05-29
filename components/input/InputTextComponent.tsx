@@ -1,10 +1,16 @@
 import { Colors } from "@/constants/Colors";
-import { SafeAreaView, Text, TextInput } from "react-native";
+import {
+  KeyboardTypeOptions,
+  SafeAreaView,
+  Text,
+  TextInput,
+} from "react-native";
 
 interface iTextInputProps {
   label: string;
   value: string;
   placeholder: string;
+  keyboardType?: KeyboardTypeOptions;
   isPassword?: boolean;
   onChange: (value: string) => void;
 }
@@ -25,6 +31,7 @@ const InputTextComponent = (props: iTextInputProps) => {
         onChangeText={props.onChange}
         returnKeyType="next"
         secureTextEntry={props.isPassword ?? false}
+        keyboardType={props.keyboardType ?? "default"}
         style={{
           borderWidth: 1,
           borderStyle: "solid",

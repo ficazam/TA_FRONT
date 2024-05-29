@@ -2,6 +2,7 @@ import { Colors } from "@/constants/Colors";
 import { useUserColor } from "@/hooks/useUserColor";
 import { Pressable, Text } from "react-native";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
+import Button from "./input/Button";
 
 interface iDatepickerComponentProps {
   open: boolean;
@@ -19,26 +20,7 @@ const DatepickerComponent = ({
   const { userColor } = useUserColor();
   return (
     <>
-      <Pressable
-        onPress={() => setOpen(true)}
-        style={{
-          height: 50,
-          width: 200,
-          backgroundColor: userColor.transparentColor,
-          borderColor: userColor.color,
-          borderWidth: 1,
-          borderRadius: 18,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text
-          style={{ color: Colors.white, fontSize: 18, fontWeight: "semibold" }}
-        >
-          Delivery date
-        </Text>
-      </Pressable>
+      <Button buttonTitle="Delivery date" onPress={() => setOpen(true)} />
 
       {open && (
         <RNDateTimePicker

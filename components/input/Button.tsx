@@ -15,19 +15,19 @@ const Button = (props: iButtonProps) => {
     <Pressable
       onPress={props.onPress}
       style={{
-        backgroundColor: userColor.transparentColor,
-        maxWidth: "50%",
-        paddingHorizontal: 30,
-        paddingVertical: 12,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: userColor.color,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+          height: 50,
+          width: 200,
+          backgroundColor: userColor.transparentColor,
+          borderColor: userColor.color,
+          borderWidth: 1,
+          marginTop: 10,
+          borderRadius: 18,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
     >
-      <Text style={{ color: Colors.white }}>{props.buttonTitle}</Text>
+      <Text style={{ color: Colors.white, fontSize: 18 }}>{props.buttonTitle}</Text>
     </Pressable>
   );
 };

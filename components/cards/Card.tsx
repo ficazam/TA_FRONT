@@ -32,7 +32,9 @@ const Card = (props: iCardProps) => {
       }}
     >
       <View>{props.icon}</View>
-      <Text style={{ marginTop: 10, color: Colors.white }}>{props.title}</Text>
+      <Text style={{ marginTop: 10, color: Colors.white, fontWeight: "bold" }}>
+        {props.title}
+      </Text>
     </Pressable>
   );
 };

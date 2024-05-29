@@ -1,7 +1,7 @@
 import ErrorText from "@/components/ErrorText";
 import RoleCard from "@/components/cards/RoleCard";
 import ButtonTile from "@/components/input/ButtonTile";
-import InputTextComponent from "@/components/input/TextInput";
+import InputTextComponent from "@/components/input/InputTextComponent";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
 import { UserRole } from "@/core/enums/user-role.enum";
 import { UserStatus } from "@/core/enums/user-status.enum";
@@ -136,6 +136,7 @@ const newStaff = () => {
           <InputTextComponent
             label="User Email"
             placeholder="user@email.com"
+            keyboardType="email-address"
             value={newStaff.email}
             onChange={(value: string) =>
               setNewStaff({ ...newStaff, email: value })

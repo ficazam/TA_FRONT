@@ -18,8 +18,6 @@ const OrderCard = (props: iOrderCardProps) => {
     (icon) => icon.name === props.order.status
   )!;
 
-  console.log(props.order);
-
   return (
     <Pressable
       onPress={() => console.log(props.order.id)}

@@ -15,6 +15,7 @@ export const itemsSlice = createApi({
       }
     },
   }),
+  keepUnusedDataFor: 0,
   endpoints(builder) {
     return {
       getAllSchoolItems: builder.query<

@@ -15,6 +15,7 @@ export const orderSlice = createApi({
       }
     },
   }),
+  keepUnusedDataFor: 0,
   endpoints(builder) {
     return {
       getAllSchoolOrders: builder.query<

@@ -1,4 +1,4 @@
-import SchoolCard from "@/components/admin/schoolCard/SchoolCard";
+import SchoolCard from "@/components/cards/SchoolCard";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
 import { Colors } from "@/constants/Colors";
@@ -22,7 +22,7 @@ const allSchools = () => {
   }, [query]);
 
   return (
-    <UserPageLayout title="All Schools" route='/(principal)'>
+    <UserPageLayout title="All Schools" route="/(principal)">
       {!allSchools.length ? (
         <LoadingScreen />
       ) : (

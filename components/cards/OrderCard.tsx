@@ -124,7 +124,10 @@ const OrderCard = (props: iOrderCardProps) => {
               fontWeight: "normal",
             }}
           >
-            Ordered by: {props.teacher.name} {props.teacher.surname}
+            Ordered by:{" "}
+            {props.teacher
+              ? `${props.teacher.name} ${props.teacher.surname}`
+              : "User not found"}
           </Text>
 
           <Text

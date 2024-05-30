@@ -1,5 +1,6 @@
 import UserPageLayout from "@/components/navigation/PageTitleNav";
 import OrderListScreen from "@/components/screens/OrderListScreen";
+import { OrderStatus } from "@/core/enums/order-status.enum";
 import { UserRole } from "@/core/enums/user-role.enum";
 import { Order } from "@/core/types/order.type";
 import { User } from "@/core/types/user.type";
@@ -8,16 +9,15 @@ import { useLazyGetAllSchoolUsersQuery } from "@/store/features/api/user.slice";
 import { useAppSelector } from "@/store/hooks";
 import { useEffect, useState } from "react";
 
-const schoolOrders = () => {
-  const { user } = useAppSelector((user) => user.userState);
-  const [orderHistory, setOrderHistory] = useState<Order[]>([]);
-  const [schoolTeachers, setSchoolTeachers] = useState<User[]>([]);
+const forApproval = () => {
+  const { user } = useAppSelector((state) => state.userState);
+  const [ordersForApproval, setOrdersForApproval] = useState<Order[]>([]);
+  const [allTeachers, setAllTeachers] = useState<User[]>([]);
 
   const [
     getOrdersQuery,
     { isLoading: isLoadingOrders, isSuccess: isSuccessOrders },
   ] = useLazyGetAllSchoolOrdersQuery();
-
   const [
     getTeachersQuery,
     { isLoading: isLoadingTeachers, isSuccess: isSuccessTeachers },
@@ -29,7 +29,12 @@ const schoolOrders = () => {
         return;
       }
 
-      setOrderHistory(ordersQuery.data.data);
+      const filteredOrdersForApproval = ordersQuery.data.data.filter(
+        (order) =>
+          order.requiresApproval && order.status === OrderStatus.Ordered
+      );
+
+      setOrdersForApproval(filteredOrdersForApproval);
     });
 
     getTeachersQuery({ schoolId: user.schoolId! }).then((teachersQuery) => {
@@ -37,30 +42,25 @@ const schoolOrders = () => {
         return;
       }
 
-      const teachers: User[] = teachersQuery.data.data.filter(
-        (staffMember) => staffMember.role === UserRole.Teacher
+      const filteredUsers = teachersQuery.data.data.filter(
+        (user) => user.role === UserRole.Teacher
       );
-
-      setSchoolTeachers(teachers);
+      setAllTeachers(filteredUsers);
     });
   }, []);
 
-  useEffect(() => {
-    getTeachersQuery;
-  }, []);
-
   return (
-    <UserPageLayout title="Order History" route="/mySchool">
+    <UserPageLayout title="Orders for Approval" route="/(coordinator)">
       <OrderListScreen
         isLoadingOrders={isLoadingOrders}
         isLoadingTeachers={isLoadingTeachers}
         isSuccessOrders={isSuccessOrders}
         isSuccessTeachers={isSuccessTeachers}
-        ordersToDisplay={orderHistory}
-        teachersToDisplay={schoolTeachers}
+        ordersToDisplay={ordersForApproval}
+        teachersToDisplay={allTeachers}
       />
     </UserPageLayout>
   );
 };
 
-export default schoolOrders;
+export default forApproval;

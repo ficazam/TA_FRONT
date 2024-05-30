@@ -11,6 +11,8 @@ export interface Order {
   teacherId: string;
   requiresApproval: boolean;
   items: OrderItem[];
+  approved?: boolean;
+  approvedById?: string;
 }
 
 export const emptyOrder: Order = {

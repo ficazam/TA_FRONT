@@ -27,7 +27,7 @@ const MyOrders = () => {
   }, []);
 
   return (
-    <UserPageLayout title="Order History" route="/(teacher)">
+    <UserPageLayout title="Order History" route="/(coordinator)">
       <TeacherOrderListScreen
         isLoadingOrders={isLoadingOrders}
         isSuccessOrders={isSuccessOrders}

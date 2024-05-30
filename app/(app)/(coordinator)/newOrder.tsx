@@ -108,14 +108,12 @@ const NewOrder = () => {
         schoolId: user.schoolId,
         teacherId: user.id,
         requiresApproval: itemsThatRequireApproval.length > 0,
-        approved: itemsThatRequireApproval.length > 0,
-        approvedById: user.id,
         deliveryDate: deliveryDate,
         items: orderItems,
       };
 
       await createNewOrder(newOrder).unwrap();
-      router.push("/(teacher)");
+      router.push("/(coordinator)");
     } catch (error: any) {
       setSubmitError(error.description);
       console.error(error);
@@ -125,7 +123,7 @@ const NewOrder = () => {
   };
 
   return (
-    <UserPageLayout title="New Order" route="/(teacher)">
+    <UserPageLayout title="New Order" route="/(coordinator)">
       <NewOrderForm
         loading={loading}
         isLoadingItems={isLoadingItems}

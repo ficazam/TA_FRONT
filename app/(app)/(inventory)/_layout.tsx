@@ -7,6 +7,7 @@ const InventoryLayout = () => {
       <Stack.Screen name="inventory" options={{ headerShown: false }} />
       <Stack.Screen name="orders" options={{ headerShown: false }} />
       <Stack.Screen name="newItem" options={{ headerShown: false }} />
+      <Stack.Screen name="orderDetails/[id]" options={{ headerShown: false }} />
     </Stack>
   );
 };

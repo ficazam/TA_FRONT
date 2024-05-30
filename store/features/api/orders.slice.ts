@@ -24,7 +24,7 @@ export const orderSlice = createApi({
       >({
         query: ({ schoolId }) => {
           return {
-            url: `/orders/${schoolId}`,
+            url: `orders/${schoolId}`,
             method: "GET",
           };
         },

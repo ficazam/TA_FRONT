@@ -60,7 +60,7 @@ export const usersSlice = createApi({
       >({
         query: ({ userId }) => {
           return {
-            url: `user/${userId}`,
+            url: `users/user/${userId}`,
             method: "GET",
           };
         },

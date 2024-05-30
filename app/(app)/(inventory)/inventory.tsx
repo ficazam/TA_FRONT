@@ -1,25 +1,20 @@
-import ErrorText from "@/components/ErrorText";
+import ErrorText from "@/components/Text/ErrorText";
 import InventoryCard from "@/components/cards/InventoryCard";
 import Button from "@/components/input/Button";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
-import { Colors } from "@/constants/Colors";
 import { Item } from "@/core/types/item.type";
-import { useUserColor } from "@/hooks/useUserColor";
 import { useLazyGetAllSchoolItemsQuery } from "@/store/features/api/items.slice";
 import { useAppSelector } from "@/store/hooks";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
+import { FlatList, View } from "react-native";
 
 const inventory = () => {
   const { user } = useAppSelector((state) => state.userState);
-  const { userColor } = useUserColor();
   const [schoolItems, setSchoolItems] = useState<Item[]>([]);
-  const [
-    getItemsQuery,
-    { isLoading: isLoadingItems, isSuccess: isSuccessItems },
-  ] = useLazyGetAllSchoolItemsQuery();
+  const [getItemsQuery, { isLoading: isLoadingItems }] =
+    useLazyGetAllSchoolItemsQuery();
 
   useEffect(() => {
     getItemsQuery({ schoolId: user.schoolId! }).then((itemsQuery) => {
@@ -42,10 +37,6 @@ const inventory = () => {
         />
       )}
 
-      {!isLoadingItems && !isSuccessItems && (
-        <ErrorText error="Error loading items." />
-      )}
-
       {!isLoadingItems && !schoolItems.length && (
         <ErrorText error="No items to show." />
       )}
@@ -60,7 +51,7 @@ const inventory = () => {
           marginBottom: 100,
         }}
       >
-        {isSuccessItems && (
+        {schoolItems.length > 0 && (
           <FlatList
             data={schoolItems}
             showsVerticalScrollIndicator={false}

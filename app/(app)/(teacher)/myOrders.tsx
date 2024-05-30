@@ -11,7 +11,7 @@ const MyOrders = () => {
 
   const [
     getQueries,
-    { isLoading: isLoadingOrders, isSuccess: isSuccessOrders },
+    { isLoading: isLoadingOrders },
   ] = useLazyGetAllTeacherOrdersQuery();
 
   useEffect(() => {
@@ -30,7 +30,6 @@ const MyOrders = () => {
     <UserPageLayout title="Order History" route="/(teacher)">
       <TeacherOrderListScreen
         isLoadingOrders={isLoadingOrders}
-        isSuccessOrders={isSuccessOrders}
         orderHistory={orderHistory}
       />
     </UserPageLayout>

@@ -22,12 +22,12 @@ const InventoryHome = () => {
           <SimpleLineIcons name="magnifier" size={24} color={Colors.white} />
         }
         title="View Inventory"
-        link="/inventory"
+        link="/(inventory)/inventory"
       />
       <Card
         icon={<SimpleLineIcons name="organization" size={24} color={Colors.white} />}
         title="View Orders"
-        link="/orders"
+        link="/(inventory)/orders"
       />
       {/* <Card
         icon={<SimpleLineIcons name="plus" size={24} color={Colors.white} />}

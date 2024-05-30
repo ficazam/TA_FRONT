@@ -20,12 +20,12 @@ const TeacherHome = () => {
           <SimpleLineIcons name="plus" size={24} color={Colors.white} />
         }
         title="New Order"
-        link="/newOrder"
+        link="/(teacher)/newOrder"
       />
       <Card
         icon={<SimpleLineIcons name="organization" size={24} color={Colors.white} />}
         title="My Orders"
-        link="/myOrders"
+        link="/(teacher)/myOrders"
       />
     </View>
   );

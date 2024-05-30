@@ -1,8 +1,5 @@
-import { Colors } from "@/constants/Colors";
-import { useUserColor } from "@/hooks/useUserColor";
-import { Pressable, Text } from "react-native";
 import RNDateTimePicker from "@react-native-community/datetimepicker";
-import Button from "./input/Button";
+import Button from "./Button";
 
 interface iDatepickerComponentProps {
   open: boolean;
@@ -17,7 +14,6 @@ const DatepickerComponent = ({
   date,
   setDate,
 }: iDatepickerComponentProps) => {
-  const { userColor } = useUserColor();
   return (
     <>
       <Button buttonTitle="Delivery date" onPress={() => setOpen(true)} />

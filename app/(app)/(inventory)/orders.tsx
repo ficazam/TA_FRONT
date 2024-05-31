@@ -1,4 +1,4 @@
-import ErrorText from "@/components/ErrorText";
+import ErrorText from "@/components/Text/ErrorText";
 import OrderCard from "@/components/cards/OrderCard";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
@@ -17,14 +17,10 @@ const orders = () => {
   const [schoolOrders, setSchoolOrders] = useState<Order[]>([]);
   const [schoolTeachers, setSchoolTeachers] = useState<User[]>([]);
 
-  const [
-    getOrdersQuery,
-    { isLoading: isLoadingOrders, isSuccess: isSuccessOrders },
-  ] = useLazyGetAllSchoolOrdersQuery();
-  const [
-    getTeachersQuery,
-    { isLoading: isLoadingTeachers, isSuccess: isSuccessTeachers },
-  ] = useLazyGetAllSchoolUsersQuery();
+  const [getOrdersQuery, { isLoading: isLoadingOrders }] =
+    useLazyGetAllSchoolOrdersQuery();
+  const [getTeachersQuery, { isLoading: isLoadingTeachers }] =
+    useLazyGetAllSchoolUsersQuery();
 
   useEffect(() => {
     getOrdersQuery({ schoolId: user.schoolId! }).then((ordersQuery) => {
@@ -73,7 +69,7 @@ const orders = () => {
           paddingHorizontal: 20,
         }}
       >
-        {isSuccessOrders && isSuccessTeachers && (
+        {schoolOrders.length > 0 && schoolTeachers.length > 0 && (
           <FlatList
             showsVerticalScrollIndicator={false}
             data={schoolOrders}

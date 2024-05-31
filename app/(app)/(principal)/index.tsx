@@ -19,7 +19,7 @@ const PrincipalHome = () => {
         icon={
           <SimpleLineIcons name="user-follow" size={24} color={Colors.white} />
         }
-        title="Add New Staff Member"
+        title="New Staff Member"
         link="/newStaff"
       />
       <Card

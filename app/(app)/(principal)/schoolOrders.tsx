@@ -15,12 +15,12 @@ const schoolOrders = () => {
 
   const [
     getOrdersQuery,
-    { isLoading: isLoadingOrders, isSuccess: isSuccessOrders },
+    { isLoading: isLoadingOrders },
   ] = useLazyGetAllSchoolOrdersQuery();
 
   const [
     getTeachersQuery,
-    { isLoading: isLoadingTeachers, isSuccess: isSuccessTeachers },
+    { isLoading: isLoadingTeachers },
   ] = useLazyGetAllSchoolUsersQuery();
 
   useEffect(() => {
@@ -54,8 +54,6 @@ const schoolOrders = () => {
       <OrderListScreen
         isLoadingOrders={isLoadingOrders}
         isLoadingTeachers={isLoadingTeachers}
-        isSuccessOrders={isSuccessOrders}
-        isSuccessTeachers={isSuccessTeachers}
         ordersToDisplay={orderHistory}
         teachersToDisplay={schoolTeachers}
       />

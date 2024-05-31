@@ -1,4 +1,4 @@
-import ErrorText from "@/components/ErrorText";
+import ErrorText from "@/components/Text/ErrorText";
 import RoleCard from "@/components/cards/RoleCard";
 import ButtonTile from "@/components/input/ButtonTile";
 import InputTextComponent from "@/components/input/InputTextComponent";

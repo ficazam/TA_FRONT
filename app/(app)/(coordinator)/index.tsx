@@ -36,7 +36,7 @@ const CoordinatorHome = () => {
       <Card
         icon={<SimpleLineIcons name="check" size={24} color={Colors.white} />}
         title="My Approved Orders"
-        link="/approvedOrders"
+        link="/(coordinator)/approvedOrders"
       />
 
       <Card
@@ -44,20 +44,20 @@ const CoordinatorHome = () => {
           <SimpleLineIcons name="organization" size={24} color={Colors.white} />
         }
         title="Orders for Approval"
-        link="/forApproval"
+        link="/(coordinator)/forApproval"
       />
 
       <Card
         icon={<SimpleLineIcons name="plus" size={24} color={Colors.white} />}
         title="New Order"
-        link="/newOrder"
+        link="/(coordinator)/newOrder"
       />
       <Card
         icon={
           <SimpleLineIcons name="organization" size={24} color={Colors.white} />
         }
         title="My Orders"
-        link="/myOrders"
+        link="/(coordinator)/myOrders"
       />
     </View>
   );

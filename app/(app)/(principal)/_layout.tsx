@@ -8,6 +8,7 @@ const PrincipalHome = () => {
       <Stack.Screen name="mySchool" options={{ headerShown: false }} />
       <Stack.Screen name="schoolStaff" options={{ headerShown: false }} />
       <Stack.Screen name="schoolOrders" options={{ headerShown: false }} />
+      <Stack.Screen name="orderDetails/[id]" options={{ headerShown: false }} />
     </Stack>
   );
 };

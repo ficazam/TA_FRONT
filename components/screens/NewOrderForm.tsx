@@ -1,26 +1,25 @@
 import { FlatList, View } from "react-native";
-import DatepickerComponent from "../DatepickerComponent";
+import DatepickerComponent from "../input/DatepickerComponent";
 import NewOrderItemCard from "../cards/NewOrderItemCard";
 import ButtonTile from "../input/ButtonTile";
 import LoadingScreen from "../loading/LoadingScreen";
-import ErrorText from "../ErrorText";
+import ErrorText from "../Text/ErrorText";
 import { Item } from "@/core/types/item.type";
 import { OrderItem } from "@/core/types/order-item.type";
 
 interface iNewOrderFormProps {
-    loading: boolean
-    isLoadingItems: boolean
-    isSuccessItems: boolean
-    submitError: string
-    dateModalOpen: boolean
-    setDateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
-    deliveryDate: Date
-    setDeliveryDate: React.Dispatch<React.SetStateAction<Date>>
-    schoolItems: Item[]
-    orderItems: OrderItem[]
-    handleAddItemToOrder: (itemId: string) => void
-    handleRemoveItemFromOrder: (itemId: string) => void
-    handleSubmitOrder: () => void
+  loading: boolean;
+  isLoadingItems: boolean;
+  submitError: string;
+  dateModalOpen: boolean;
+  setDateModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  deliveryDate: Date;
+  setDeliveryDate: React.Dispatch<React.SetStateAction<Date>>;
+  schoolItems: Item[];
+  orderItems: OrderItem[];
+  handleAddItemToOrder: (itemId: string) => void;
+  handleRemoveItemFromOrder: (itemId: string) => void;
+  handleSubmitOrder: () => void;
 }
 
 const NewOrderForm = (props: iNewOrderFormProps) => {
@@ -28,18 +27,18 @@ const NewOrderForm = (props: iNewOrderFormProps) => {
     <>
       {props.isLoadingItems && <LoadingScreen />}
 
-      <ErrorText error={props.submitError} />
-
-      {!props.isLoadingItems && !props.isSuccessItems && (
-        <ErrorText error="Error loading items." />
-      )}
-
       <DatepickerComponent
         open={props.dateModalOpen}
         setOpen={props.setDateModalOpen}
         date={props.deliveryDate}
         setDate={props.setDeliveryDate}
       />
+
+      <ErrorText error={props.submitError} />
+
+      {!props.isLoadingItems && props.schoolItems.length <= 0 && (
+        <ErrorText error="Error loading items." />
+      )}
 
       <View
         style={{
@@ -51,7 +50,7 @@ const NewOrderForm = (props: iNewOrderFormProps) => {
           marginBottom: 250,
         }}
       >
-        {props.isSuccessItems && (
+        {props.schoolItems.length > 0 && (
           <FlatList
             data={props.schoolItems}
             showsVerticalScrollIndicator={false}

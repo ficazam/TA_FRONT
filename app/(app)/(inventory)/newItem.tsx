@@ -1,4 +1,4 @@
-import ErrorText from "@/components/ErrorText";
+import ErrorText from "@/components/Text/ErrorText";
 import ButtonTile from "@/components/input/ButtonTile";
 import InputCheckboxComponent from "@/components/input/InputCheckboxComponent";
 import InputSelectorComponent from "@/components/input/InputSelectorComponent";
@@ -32,7 +32,7 @@ const newItem = () => {
 
   const [
     getItemsQuery,
-    { isLoading: isLoadingItems, isSuccess: isSuccessItems },
+    { isLoading: isLoadingItems },
   ] = useLazyGetAllSchoolItemsQuery();
   const [createNewItem] = useCreateNewItemMutation();
 
@@ -83,7 +83,7 @@ const newItem = () => {
     <UserPageLayout title="Add Item to Inventory" route="/inventory">
       <ErrorText error={submitError} />
 
-      {!isLoadingItems && isSuccessItems && (
+      {!isLoadingItems && (
         <KeyboardAvoidingView
           enabled
           behavior={Platform.OS === "ios" ? "height" : "padding"}

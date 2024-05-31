@@ -18,7 +18,7 @@ const AdminHome = () => {
       <Card
         icon={<SimpleLineIcons name="plus" size={24} color={Colors.white} />}
         title="Add New School"
-        link="/newSchool"
+        link="/(admin)/newSchool"
       />
 
       <Card
@@ -26,7 +26,7 @@ const AdminHome = () => {
           <SimpleLineIcons name="magnifier" size={24} color={Colors.white} />
         }
         title="View All Schools"
-        link="/allSchools"
+        link="/(admin)/allSchools"
       />
     </View>
   );

@@ -1,4 +1,4 @@
-import ErrorText from "@/components/ErrorText";
+import ErrorText from "@/components/Text/ErrorText";
 import StaffCard from "@/components/cards/StaffCard";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
@@ -12,10 +12,8 @@ const schoolStaff = () => {
   const { user } = useAppSelector((state) => state.userState);
   const [schoolStaff, setSchoolStaff] = useState<User[]>([]);
 
-  const [
-    getSchoolStaff,
-    { isLoading: isLoadingSchoolStaff, isSuccess: isSuccessSchoolStaff },
-  ] = useLazyGetAllSchoolUsersQuery();
+  const [getSchoolStaff, { isLoading: isLoadingSchoolStaff }] =
+    useLazyGetAllSchoolUsersQuery();
 
   useEffect(() => {
     getSchoolStaff({ schoolId: user.schoolId! }).then((schoolStaffQuery) => {
@@ -31,7 +29,7 @@ const schoolStaff = () => {
     <UserPageLayout title="School Staff" route="/mySchool">
       {isLoadingSchoolStaff && <LoadingScreen />}
 
-      {!isLoadingSchoolStaff && !isSuccessSchoolStaff && (
+      {!isLoadingSchoolStaff && !schoolStaff.length && (
         <ErrorText error="No users to display." />
       )}
 
@@ -45,7 +43,7 @@ const schoolStaff = () => {
           paddingHorizontal: 20,
         }}
       >
-        {!isLoadingSchoolStaff && isSuccessSchoolStaff && (
+        {!isLoadingSchoolStaff && schoolStaff.length > 0 && (
           <FlatList
             data={schoolStaff}
             renderItem={({ item }) => <StaffCard user={item} />}

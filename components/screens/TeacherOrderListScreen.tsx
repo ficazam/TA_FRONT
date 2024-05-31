@@ -3,11 +3,11 @@ import TeacherOrderCard from "../cards/TeacherOrderCard";
 import LoadingScreen from "../loading/LoadingScreen";
 import { Order } from "@/core/types/order.type";
 import { Colors } from "@/constants/Colors";
+import ErrorText from "../Text/ErrorText";
 
 interface iTeacherOrderListScreenProps {
-    isLoadingOrders: boolean
-    isSuccessOrders: boolean
-    orderHistory: Order[]
+  isLoadingOrders: boolean;
+  orderHistory: Order[];
 }
 
 const TeacherOrderListScreen = (props: iTeacherOrderListScreenProps) => {
@@ -15,12 +15,8 @@ const TeacherOrderListScreen = (props: iTeacherOrderListScreenProps) => {
     <>
       {props.isLoadingOrders && <LoadingScreen />}
 
-      {props.isSuccessOrders && !props.orderHistory.length && (
-        <Text
-          style={{ color: Colors.danger, fontSize: 20, textAlign: "center" }}
-        >
-          No Orders to show.
-        </Text>
+      {!props.isLoadingOrders && !props.orderHistory.length && (
+        <ErrorText error="No Orders to show." />
       )}
 
       <View
@@ -33,7 +29,7 @@ const TeacherOrderListScreen = (props: iTeacherOrderListScreenProps) => {
           paddingHorizontal: 20,
         }}
       >
-        {props.isSuccessOrders && (
+        {props.orderHistory.length > 0 && (
           <FlatList
             showsVerticalScrollIndicator={false}
             data={props.orderHistory}

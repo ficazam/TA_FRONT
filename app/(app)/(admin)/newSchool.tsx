@@ -1,4 +1,4 @@
-import ErrorText from "@/components/ErrorText";
+import ErrorText from "@/components/Text/ErrorText";
 import ButtonTile from "@/components/input/ButtonTile";
 import InputTextComponent from "@/components/input/InputTextComponent";
 import UserPageLayout from "@/components/navigation/PageTitleNav";

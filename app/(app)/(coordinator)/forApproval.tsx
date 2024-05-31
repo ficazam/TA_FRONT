@@ -16,11 +16,11 @@ const forApproval = () => {
 
   const [
     getOrdersQuery,
-    { isLoading: isLoadingOrders, isSuccess: isSuccessOrders },
+    { isLoading: isLoadingOrders },
   ] = useLazyGetAllSchoolOrdersQuery();
   const [
     getTeachersQuery,
-    { isLoading: isLoadingTeachers, isSuccess: isSuccessTeachers },
+    { isLoading: isLoadingTeachers },
   ] = useLazyGetAllSchoolUsersQuery();
 
   useEffect(() => {
@@ -31,7 +31,9 @@ const forApproval = () => {
 
       const filteredOrdersForApproval = ordersQuery.data.data.filter(
         (order) =>
-          order.requiresApproval && order.status === OrderStatus.Ordered
+          order.requiresApproval &&
+          !order.approved &&
+          order.status === OrderStatus.Ordered
       );
 
       setOrdersForApproval(filteredOrdersForApproval);
@@ -54,8 +56,6 @@ const forApproval = () => {
       <OrderListScreen
         isLoadingOrders={isLoadingOrders}
         isLoadingTeachers={isLoadingTeachers}
-        isSuccessOrders={isSuccessOrders}
-        isSuccessTeachers={isSuccessTeachers}
         ordersToDisplay={ordersForApproval}
         teachersToDisplay={allTeachers}
       />

@@ -1,8 +1,3 @@
-import DatepickerComponent from "@/components/DatepickerComponent";
-import ErrorText from "@/components/ErrorText";
-import NewOrderItemCard from "@/components/cards/NewOrderItemCard";
-import ButtonTile from "@/components/input/ButtonTile";
-import LoadingScreen from "@/components/loading/LoadingScreen";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
 import NewOrderForm from "@/components/screens/NewOrderForm";
 import { Item } from "@/core/types/item.type";
@@ -13,7 +8,6 @@ import { useCreateNewOrderMutation } from "@/store/features/api/orders.slice";
 import { useAppSelector } from "@/store/hooks";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
 
 const NewOrder = () => {
   const { user } = useAppSelector((state) => state.userState);
@@ -27,7 +21,7 @@ const NewOrder = () => {
 
   const [
     getItemsQuery,
-    { isLoading: isLoadingItems, isSuccess: isSuccessItems },
+    { isLoading: isLoadingItems },
   ] = useLazyGetAllSchoolItemsQuery();
 
   useEffect(() => {
@@ -108,6 +102,8 @@ const NewOrder = () => {
         schoolId: user.schoolId,
         teacherId: user.id,
         requiresApproval: itemsThatRequireApproval.length > 0,
+        approved: itemsThatRequireApproval.length > 0,
+        approvedById: user.id,
         deliveryDate: deliveryDate,
         items: orderItems,
       };
@@ -127,7 +123,6 @@ const NewOrder = () => {
       <NewOrderForm
         loading={loading}
         isLoadingItems={isLoadingItems}
-        isSuccessItems={isSuccessItems}
         submitError={submitError}
         dateModalOpen={dateModalOpen}
         setDateModalOpen={setDateModalOpen}

@@ -8,6 +8,7 @@ const CoordinatorLayout = () => {
       <Stack.Screen name="forApproval" options={{ headerShown: false }} />
       <Stack.Screen name="newOrder" options={{ headerShown: false }} />
       <Stack.Screen name="myOrders" options={{ headerShown: false }} />
+      <Stack.Screen name="orderDetails/[id]" options={{ headerShown: false }} />
     </Stack>
   );
 };

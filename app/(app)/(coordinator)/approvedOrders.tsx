@@ -7,7 +7,6 @@ import { useLazyGetAllSchoolOrdersQuery } from "@/store/features/api/orders.slic
 import { useLazyGetAllSchoolUsersQuery } from "@/store/features/api/user.slice";
 import { useAppSelector } from "@/store/hooks";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
 
 const approvedOrders = () => {
   const { user } = useAppSelector((state) => state.userState);
@@ -16,11 +15,11 @@ const approvedOrders = () => {
 
   const [
     getOrdersQuery,
-    { isLoading: isLoadingOrders, isSuccess: isSuccessOrders },
+    { isLoading: isLoadingOrders },
   ] = useLazyGetAllSchoolOrdersQuery();
   const [
     getTeachersQuery,
-    { isLoading: isLoadingTeachers, isSuccess: isSuccessTeachers },
+    { isLoading: isLoadingTeachers },
   ] = useLazyGetAllSchoolUsersQuery();
 
   useEffect(() => {
@@ -52,12 +51,10 @@ const approvedOrders = () => {
   }, []);
 
   return (
-    <UserPageLayout title="Orders for Approval" route="/(coordinator)">
+    <UserPageLayout title="Approved Orders" route="/(coordinator)">
       <OrderListScreen
         isLoadingOrders={isLoadingOrders}
         isLoadingTeachers={isLoadingTeachers}
-        isSuccessOrders={isSuccessOrders}
-        isSuccessTeachers={isSuccessTeachers}
         ordersToDisplay={approvedOrders}
         teachersToDisplay={allTeachers}
       />

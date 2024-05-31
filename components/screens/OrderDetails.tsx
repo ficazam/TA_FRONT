@@ -20,10 +20,9 @@ import ButtonTile from "../input/ButtonTile";
 import Button from "../input/Button";
 import { OrderStatus } from "@/core/enums/order-status.enum";
 import { useUpdateNewOrderMutation } from "@/store/features/api/orders.slice";
-import InventoryCard from "../cards/InventoryCard";
 import { Item, emptyItem } from "@/core/types/item.type";
 import OrderItemCard from "../cards/OrderItemCard";
-import { ScrollView } from "react-native-gesture-handler";
+import { router } from "expo-router";
 
 interface iOrderDetailsProps {
   order: Order;
@@ -42,19 +41,68 @@ const OrderDetails = (props: iOrderDetailsProps) => {
   const { userColor } = useUserColor();
   const [loading, setLoading] = useState<boolean>(false);
   const [updateError, setUpdateError] = useState<string>("");
+
   const [updateOrder] = useUpdateNewOrderMutation();
 
-  const handleOrderUpdate = async (updateType: OrderStatus) => {
+  const buttonTitle = () => {
+    let buttonTitle = "";
+
+    if (props.order.status === OrderStatus.Ordered) {
+      buttonTitle = "Accept Order";
+    }
+
+    if (props.order.status === OrderStatus.Accepted) {
+      buttonTitle = "Dispatch Order";
+    }
+
+    if (props.order.status === OrderStatus.Route) {
+      buttonTitle = "Mark Delivered";
+    }
+
+    if (user.role === UserRole.Coordinator) {
+      buttonTitle = "Approve Order";
+    }
+
+    return buttonTitle;
+  };
+
+  const handleOrderUpdate = async (updateType?: OrderStatus) => {
     setLoading(true);
+
+    let updateOrderType: OrderStatus = OrderStatus.Ordered;
+
+    switch (props.order.status) {
+      case OrderStatus.Ordered:
+        updateOrderType = OrderStatus.Accepted;
+        break;
+      case OrderStatus.Accepted:
+        updateOrderType = OrderStatus.Route;
+        break;
+      case OrderStatus.Route:
+        updateOrderType = OrderStatus.Delivered;
+        break;
+    }
+
+    if (user.role === UserRole.Coordinator) {
+      updateOrderType = OrderStatus.Approved;
+    }
+
     try {
-      const newOrder: Order = {
-        ...props.order,
-        status: updateType,
-        approvedById: user.id,
-        approved: updateType === OrderStatus.Approved,
-      };
+      const newOrder: Order =
+        user.role === UserRole.Coordinator
+          ? {
+              ...props.order,
+              status: updateType ?? updateOrderType,
+              approvedById: user.id,
+              approved: user.role === UserRole.Coordinator,
+            }
+          : {
+              ...props.order,
+              status: updateType ?? updateOrderType,
+            };
 
       await updateOrder(newOrder).unwrap();
+      router.push(`/(${user.role})`)
     } catch (error: any) {
       setUpdateError("Error updating order.");
       console.error(error.description);
@@ -64,16 +112,15 @@ const OrderDetails = (props: iOrderDetailsProps) => {
   };
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
+    <View
       style={{
+        height: "96%",
+        width: width,
+        paddingVertical: 10,
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "center",
-        height: "96%",
-        width: width,
-        paddingVertical: 10,
       }}
     >
       {(props.isLoadingOrder || props.isLoadingTeacher) && <LoadingScreen />}
@@ -91,8 +138,8 @@ const OrderDetails = (props: iOrderDetailsProps) => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              height: 150,
-              width: 150,
+              height: 100,
+              width: 100,
               borderWidth: 1,
               borderColor: userColor.color,
               borderRadius: 100,
@@ -123,8 +170,7 @@ const OrderDetails = (props: iOrderDetailsProps) => {
                 color: Colors.black,
               }}
             >
-              Order by: {props.teacher.role} {props.teacher.name}{" "}
-              {props.teacher.surname}
+              {props.teacher.role} {props.teacher.name} {props.teacher.surname}
             </Text>
 
             <View
@@ -237,6 +283,7 @@ const OrderDetails = (props: iOrderDetailsProps) => {
             </Text>
             <FlatList
               data={props.order.items}
+              showsVerticalScrollIndicator={false}
               renderItem={({ item }) => (
                 <OrderItemCard
                   item={
@@ -250,7 +297,7 @@ const OrderDetails = (props: iOrderDetailsProps) => {
             />
           </View>
 
-          <View style={{ position: "absolute", bottom: 125, left: "auto" }}>
+          <View style={{}}>
             {props.order.status === OrderStatus.Ordered &&
               (user.role === UserRole.Coordinator ||
                 user.role === UserRole.Inventory) && (
@@ -268,15 +315,16 @@ const OrderDetails = (props: iOrderDetailsProps) => {
       {!(props.isLoadingOrder || props.isLoadingTeacher) &&
         props.order.requiresApproval &&
         !props.order.approved &&
-        user.role === UserRole.Coordinator && (
+        (user.role === UserRole.Coordinator ||
+          user.role === UserRole.Inventory) && (
           <ButtonTile
-            title="Approve Order"
-            onPress={() => handleOrderUpdate(OrderStatus.Approved)}
+            title={buttonTitle()}
+            onPress={() => handleOrderUpdate()}
             isLoading={loading}
             disabled={loading}
           />
         )}
-    </ScrollView>
+    </View>
   );
 };
 

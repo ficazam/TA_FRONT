@@ -3,11 +3,13 @@ import { orderIconInformation } from "@/core/constants/order-icons.constant";
 import { OrderStatus } from "@/core/enums/order-status.enum";
 import { Order } from "@/core/types/order.type";
 import { useUserColor } from "@/hooks/useUserColor";
+import { useAppSelector } from "@/store/hooks";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
 const TeacherOrderCard = (props: { order: Order }) => {
+  const { user } = useAppSelector((state) => state.userState);
   const { userColor } = useUserColor();
   const orderIcon: any = orderIconInformation.find(
     (icon) => icon.name === props.order.status
@@ -17,7 +19,7 @@ const TeacherOrderCard = (props: { order: Order }) => {
     <Link
       asChild
       href={{
-        pathname: "/(teacher)/orderDetails/[id]",
+        pathname: `/(${user.role})/orderDetails/[id]`,
         params: { id: props.order.id },
       }}
     >

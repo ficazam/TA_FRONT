@@ -47,7 +47,10 @@ const OrderDetails = (props: iOrderDetailsProps) => {
   const buttonTitle = () => {
     let buttonTitle = "";
 
-    if (props.order.status === OrderStatus.Ordered) {
+    if (
+      props.order.status === OrderStatus.Ordered ||
+      props.order.status === OrderStatus.Approved
+    ) {
       buttonTitle = "Accept Order";
     }
 
@@ -73,6 +76,7 @@ const OrderDetails = (props: iOrderDetailsProps) => {
 
     switch (props.order.status) {
       case OrderStatus.Ordered:
+      case OrderStatus.Approved:
         updateOrderType = OrderStatus.Accepted;
         break;
       case OrderStatus.Accepted:
@@ -102,7 +106,7 @@ const OrderDetails = (props: iOrderDetailsProps) => {
             };
 
       await updateOrder(newOrder).unwrap();
-      router.push(`/(${user.role})`)
+      router.push(`/(${user.role})`);
     } catch (error: any) {
       setUpdateError("Error updating order.");
       console.error(error.description);
@@ -281,24 +285,29 @@ const OrderDetails = (props: iOrderDetailsProps) => {
             >
               Ordered Items
             </Text>
-            <FlatList
-              data={props.order.items}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <OrderItemCard
-                  item={
-                    props.items.find(
-                      (inventoryItem) => inventoryItem.id === item.itemId
-                    ) || emptyItem
-                  }
-                  amount={item.amount}
-                />
-              )}
-            />
+            <View style={{ height: 250 }}>
+              <FlatList
+                data={props.order.items}
+                scrollEnabled
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <OrderItemCard
+                    item={
+                      props.items.find(
+                        (inventoryItem) => inventoryItem.id === item.itemId
+                      ) || emptyItem
+                    }
+                    amount={item.amount}
+                  />
+                )}
+              />
+            </View>
           </View>
 
           <View style={{}}>
             {props.order.status === OrderStatus.Ordered &&
+              props.order.requiresApproval &&
+              !props.order.approved &&
               (user.role === UserRole.Coordinator ||
                 user.role === UserRole.Inventory) && (
                 <Button
@@ -313,10 +322,10 @@ const OrderDetails = (props: iOrderDetailsProps) => {
       )}
 
       {!(props.isLoadingOrder || props.isLoadingTeacher) &&
-        props.order.requiresApproval &&
-        !props.order.approved &&
-        (user.role === UserRole.Coordinator ||
-          user.role === UserRole.Inventory) && (
+        (user.role === UserRole.Inventory ||
+          (user.role === UserRole.Coordinator &&
+            props.order.requiresApproval &&
+            !props.order.approved)) && (
           <ButtonTile
             title={buttonTitle()}
             onPress={() => handleOrderUpdate()}

@@ -22,7 +22,7 @@ const OrderItemCard = (props: iInventoryCardProps) => {
         height: 125,
         paddingVertical: 5,
         paddingHorizontal: 20,
-        marginLeft: 10,
+        marginLeft: 20,
         marginVertical: 7,
         display: "flex",
         flexDirection: "row",

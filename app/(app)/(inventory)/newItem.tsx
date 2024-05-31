@@ -30,10 +30,8 @@ const newItem = () => {
   const [itemTypes, setItemTypes] = useState<string[]>([]);
   const [newItemType, setNewItemType] = useState<string>("");
 
-  const [
-    getItemsQuery,
-    { isLoading: isLoadingItems },
-  ] = useLazyGetAllSchoolItemsQuery();
+  const [getItemsQuery, { isLoading: isLoadingItems }] =
+    useLazyGetAllSchoolItemsQuery();
   const [createNewItem] = useCreateNewItemMutation();
 
   useEffect(() => {
@@ -52,7 +50,7 @@ const newItem = () => {
           !allItemTypes.includes(item.type) && allItemTypes.push(item.type)
       );
 
-      setItemTypes([...allItemTypes, "New..."]);
+      setItemTypes(["Choose an item type...", ...allItemTypes, "New..."]);
     });
   }, []);
 
@@ -73,7 +71,7 @@ const newItem = () => {
       router.push("inventory");
     } catch (error: any) {
       console.error(error);
-      setSubmitError(error.description);
+      setSubmitError(error.data.message);
     } finally {
       setLoading(false);
     }

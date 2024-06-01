@@ -3,9 +3,10 @@ import RoleCard from "@/components/cards/RoleCard";
 import ButtonTile from "@/components/input/ButtonTile";
 import InputTextComponent from "@/components/input/InputTextComponent";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
-import { UserRole } from "@/core/enums/user-role.enum";
+import { UserRole, staffRoles } from "@/core/enums/user-role.enum";
 import { UserStatus } from "@/core/enums/user-status.enum";
 import { AddUser, User, emptyUser } from "@/core/types/user.type";
+import { newUserValidations } from "@/core/utils";
 import { useAddUserMutation } from "@/store/features/api/user.slice";
 import { useAppSelector } from "@/store/hooks";
 import { router } from "expo-router";
@@ -27,34 +28,8 @@ const newStaff = () => {
   const [chosenStaffRole, setChosenStaffRole] = useState<number>(0);
   const [newUserError, setNewUserError] = useState<string>("");
 
-  const staffRoles = [
-    { label: "Coordinator", value: UserRole.Coordinator },
-    { label: "Teacher", value: UserRole.Teacher },
-    { label: "Inventory Manager", value: UserRole.Inventory },
-  ];
-
-  const newUserValidations = () => {
-    if (
-      newStaff.email.length < 2 ||
-      !newStaff.email.includes("@") ||
-      !newStaff.email.includes(".") ||
-      newStaff.email.split("@")[1].length < 2 ||
-      newStaff.email.split(".")[1].length < 2
-    ) {
-      setNewUserError("Email invalid! Please enter a valid email.");
-      return false;
-    }
-
-    if (newStaff.name.length < 2 || newStaff.surname.length < 2) {
-      setNewUserError("Please enter a valid name and last name.");
-      return false;
-    }
-
-    return true;
-  };
-
   const handleNewUserSubmit = async () => {
-    if (!newUserValidations()) {
+    if (!newUserValidations(newStaff, setNewUserError)) {
       return;
     }
 

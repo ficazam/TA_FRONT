@@ -9,6 +9,7 @@ import {
 } from "@/core/types/passwords.type";
 import { ISchoolInfo, emptySchool } from "@/core/types/school.type";
 import { AddUser, User, emptyUser } from "@/core/types/user.type";
+import { newSchoolValidations } from "@/core/utils";
 import { useCreateNewSchoolMutation } from "@/store/features/api/schools.slice";
 import { useState } from "react";
 import {
@@ -31,53 +32,19 @@ const newSchool = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [createNewSchool] = useCreateNewSchoolMutation();
 
-  const runValidations = () => {
-    if (newSchool.name.length < 2) {
-      setSchoolError("Please enter a school name!");
-      return false;
-    }
-
-    if (
-      newPrincipal.name.length < 2 ||
-      newPrincipal.status.length < 2 ||
-      newPrincipal.email.length < 2 ||
-      passwords.password === "" ||
-      passwords.confirmPassword === ""
-    ) {
-      setPrincipalError("Please complete all fields before submitting.");
-      return false;
-    }
-
-    if (
-      !newPrincipal.email.includes("@") ||
-      !newPrincipal.email.includes(".") ||
-      newPrincipal.email.split("@")[1].length < 2 ||
-      newPrincipal.email.split(".")[1].length < 2
-    ) {
-      setPrincipalError("Please enter a valid email!");
-      return false;
-    }
-
-    if (passwords.password.length <= 5) {
-      setPrincipalError(
-        "Please enter a stronger password. Passwords must be longer than 5 characters."
-      );
-      return false;
-    }
-
-    if (passwords.password !== passwords.confirmPassword) {
-      setPrincipalError("Passwords don't match!");
-      return false;
-    }
-
-    return true;
-  };
-
   const handleNewSchoolSubmit = async () => {
     setSchoolError("");
     setPrincipalError("");
 
-    if (!runValidations()) {
+    if (
+      !newSchoolValidations(
+        newSchool,
+        newPrincipal,
+        passwords,
+        setPrincipalError,
+        setSchoolError
+      )
+    ) {
       return;
     }
 

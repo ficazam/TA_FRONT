@@ -6,6 +6,7 @@ import InputTextComponent from "@/components/input/InputTextComponent";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
 import { Item, emptyItem } from "@/core/types/item.type";
+import { newItemValidations } from "@/core/utils";
 import {
   useCreateNewItemMutation,
   useLazyGetAllSchoolItemsQuery,
@@ -56,6 +57,11 @@ const newItem = () => {
 
   const handleSubmitNewItem = async () => {
     setSubmitError("");
+
+    if (!newItemValidations(newItem, setSubmitError)) {
+      return;
+    }
+
     setLoading(true);
     try {
       const item: Partial<Item> = {

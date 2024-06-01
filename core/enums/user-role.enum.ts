@@ -6,3 +6,9 @@ export enum UserRole {
   Teacher = "teacher",
   Inventory = "inventory",
 }
+
+export const staffRoles = [
+  { label: "Coordinator", value: UserRole.Coordinator },
+  { label: "Teacher", value: UserRole.Teacher },
+  { label: "Inventory Manager", value: UserRole.Inventory },
+];

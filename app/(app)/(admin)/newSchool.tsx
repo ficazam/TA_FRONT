@@ -1,5 +1,6 @@
 import ErrorText from "@/components/Text/ErrorText";
 import ButtonTile from "@/components/input/ButtonTile";
+import ImageButton from "@/components/input/ImageButton";
 import InputTextComponent from "@/components/input/InputTextComponent";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
 import { Colors } from "@/constants/Colors";
@@ -10,6 +11,7 @@ import {
 import { ISchoolInfo, emptySchool } from "@/core/types/school.type";
 import { AddUser, User, emptyUser } from "@/core/types/user.type";
 import { newSchoolValidations } from "@/core/utils";
+import { useImagePicker } from "@/hooks/useImagePicker";
 import { useCreateNewSchoolMutation } from "@/store/features/api/schools.slice";
 import { useState } from "react";
 import {
@@ -31,6 +33,9 @@ const newSchool = () => {
   const [principalError, setPrincipalError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [createNewSchool] = useCreateNewSchoolMutation();
+
+  const { image, openImageTray, uploadingImage } =
+    useImagePicker("schoolImages");
 
   const handleNewSchoolSubmit = async () => {
     setSchoolError("");
@@ -85,6 +90,11 @@ const newSchool = () => {
         }}
       >
         <ScrollView scrollEnabled showsVerticalScrollIndicator={false}>
+          <ImageButton
+            image={image}
+            loading={uploadingImage}
+            openTray={openImageTray}
+          />
           <InputTextComponent
             label="School Name: "
             value={newSchool.name}

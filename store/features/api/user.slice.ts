@@ -22,15 +22,7 @@ export const usersSlice = createApi({
           return {
             url: "users",
             method: "POST",
-            body: {
-              email: body.email,
-              password: body.password,
-              name: body.name,
-              surname: body.surname,
-              role: body.role,
-              status: body.status,
-              schoolId: body.schoolId,
-            },
+            body: body,
           };
         },
       }),

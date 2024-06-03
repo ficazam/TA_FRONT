@@ -19,8 +19,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  View,
 } from "react-native";
+import { useImagePicker } from "@/hooks/useImagePicker";
+import ImageButton from "@/components/input/ImageButton";
 
 const newItem = () => {
   const { user } = useAppSelector((state) => state.userState);
@@ -30,6 +31,8 @@ const newItem = () => {
   const [submitError, setSubmitError] = useState<string>("");
   const [itemTypes, setItemTypes] = useState<string[]>([]);
   const [newItemType, setNewItemType] = useState<string>("");
+
+  const { image, uploadingImage, openImageTray } = useImagePicker("itemImages");
 
   const [getItemsQuery, { isLoading: isLoadingItems }] =
     useLazyGetAllSchoolItemsQuery();
@@ -71,6 +74,7 @@ const newItem = () => {
         schoolId: user.schoolId!,
         ordered: 0,
         isTemporal: newItem.isTemporal,
+        image: image ?? "",
       };
 
       await createNewItem(item).unwrap();
@@ -86,6 +90,7 @@ const newItem = () => {
   return (
     <UserPageLayout title="Add Item to Inventory" route="/inventory">
       <ErrorText error={submitError} />
+      {isLoadingItems && <LoadingScreen />}
 
       {!isLoadingItems && (
         <KeyboardAvoidingView
@@ -95,14 +100,22 @@ const newItem = () => {
           style={{
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
             height: height,
             width: width,
-            paddingHorizontal: 20,
           }}
         >
-          {isLoadingItems && <LoadingScreen />}
-
-          <ScrollView scrollEnabled showsVerticalScrollIndicator={false}>
+          <ImageButton
+            image={image}
+            loading={uploadingImage}
+            openTray={openImageTray}
+          />
+          <ScrollView
+            scrollEnabled
+            showsVerticalScrollIndicator={false}
+            style={{ width: "100%", paddingHorizontal: 20 }}
+          >
             <InputTextComponent
               label="New Item Name"
               placeholder="New item"
@@ -128,32 +141,23 @@ const newItem = () => {
               />
             )}
 
-            <View
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                paddingHorizontal: 20,
-              }}
-            >
-              <InputTextComponent
-                label="How many?"
-                placeholder="0"
-                value={newItem.inStock.toString()}
-                keyboardType="numeric"
-                onChange={(value) =>
-                  setNewItem({ ...newItem, inStock: parseInt(value) })
-                }
-              />
+            <InputTextComponent
+              label="How many?"
+              placeholder="0"
+              value={newItem.inStock.toString()}
+              keyboardType="numeric"
+              onChange={(value) =>
+                setNewItem({ ...newItem, inStock: parseInt(value) })
+              }
+            />
 
-              <InputCheckboxComponent
-                label="Temporal item?"
-                value={newItem.isTemporal}
-                onChange={(value: boolean) =>
-                  setNewItem({ ...newItem, isTemporal: value })
-                }
-              />
-            </View>
+            <InputCheckboxComponent
+              label="Temporal item?"
+              value={newItem.isTemporal}
+              onChange={(value: boolean) =>
+                setNewItem({ ...newItem, isTemporal: value })
+              }
+            />
           </ScrollView>
         </KeyboardAvoidingView>
       )}

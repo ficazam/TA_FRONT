@@ -45,7 +45,9 @@
     "redux-persist": "^6.0.0",
     "@react-native-community/datetimepicker": "8.0.1",
     "@react-native-picker/picker": "2.7.5",
-    "expo-checkbox": "~3.0.0"
+    "expo-checkbox": "~3.0.0",
+    "expo-image-picker": "~15.0.5",
+    "expo-notifications": "~0.28.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

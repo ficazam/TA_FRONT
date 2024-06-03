@@ -32,7 +32,7 @@ const newItem = () => {
   const [itemTypes, setItemTypes] = useState<string[]>([]);
   const [newItemType, setNewItemType] = useState<string>("");
 
-  const { image, uploadingImage, openImageTray } = useImagePicker("itemImages");
+  const { images, uploadingImage, openImageTray } = useImagePicker("itemImages");
 
   const [getItemsQuery, { isLoading: isLoadingItems }] =
     useLazyGetAllSchoolItemsQuery();
@@ -74,7 +74,7 @@ const newItem = () => {
         schoolId: user.schoolId!,
         ordered: 0,
         isTemporal: newItem.isTemporal,
-        image: image ?? "",
+        image: images[0] ?? "",
       };
 
       await createNewItem(item).unwrap();
@@ -107,7 +107,7 @@ const newItem = () => {
           }}
         >
           <ImageButton
-            image={image}
+            image={images[0]}
             loading={uploadingImage}
             openTray={openImageTray}
           />

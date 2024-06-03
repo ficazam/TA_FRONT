@@ -42,7 +42,7 @@ const ImageButton = (props: iImageButtonProps) => {
           <ActivityIndicator size={16} color={userColor.color} />
         )}
 
-        {props.image ? (
+        {!props.loading && props.image && (
           <Image
             style={{
               height: 100,
@@ -55,7 +55,9 @@ const ImageButton = (props: iImageButtonProps) => {
             }}
             resizeMode="contain"
           />
-        ) : (
+        )}
+        
+        {!props.loading && !props.image && (
           <SimpleLineIcons name="camera" size={32} color={userColor.color} />
         )}
       </Pressable>

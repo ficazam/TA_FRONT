@@ -29,7 +29,7 @@ const newStaff = () => {
   const [newStaff, setNewStaff] = useState<User>(emptyUser);
   const [chosenStaffRole, setChosenStaffRole] = useState<number>(0);
   const [newUserError, setNewUserError] = useState<string>("");
-  const { image, uploadingImage, openImageTray } = useImagePicker("staffImages");
+  const { images, uploadingImage, openImageTray } = useImagePicker("staffImages");
 
   const handleNewUserSubmit = async () => {
     if (!newUserValidations(newStaff, setNewUserError)) {
@@ -45,7 +45,7 @@ const newStaff = () => {
         role: staffRoles[chosenStaffRole].value,
         schoolId: user.schoolId,
         status: UserStatus.Unverified,
-        image: image,
+        image: images[0],
       };
 
       console.log(newUser)
@@ -80,7 +80,7 @@ const newStaff = () => {
         }}
       >
         <ScrollView scrollEnabled showsVerticalScrollIndicator={false}>
-          <ImageButton image={image} loading={uploadingImage} openTray={openImageTray} />
+          <ImageButton image={images[0]} loading={uploadingImage} openTray={openImageTray} />
           <View
             style={{
               display: "flex",

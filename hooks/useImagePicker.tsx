@@ -4,7 +4,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const useImagePicker = (imagePath: string) => {
   const [uploadingImage, setUploadingImage] = useState<boolean>(false);
-  const [image, setImage] = useState<string>("");
+  const [images, setImages] = useState<string[]>([]);
   const [imageError, setImageError] = useState<string | unknown>("");
 
   const openImageTray = async () => {
@@ -49,8 +49,8 @@ export const useImagePicker = (imagePath: string) => {
     await uploadBytes(fileRef, blob);
     const fileUrl = await getDownloadURL(fileRef);
 
-    setImage(fileUrl);
+    setImages([...images, fileUrl]);
   };
 
-  return { image, uploadingImage, openImageTray };
+  return { images, uploadingImage, openImageTray };
 };

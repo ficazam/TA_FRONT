@@ -13,6 +13,7 @@ import { AddUser, User, emptyUser } from "@/core/types/user.type";
 import { newSchoolValidations } from "@/core/utils";
 import { useImagePicker } from "@/hooks/useImagePicker";
 import { useCreateNewSchoolMutation } from "@/store/features/api/schools.slice";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
   Dimensions,
@@ -27,14 +28,12 @@ const newSchool = () => {
   const { width, height } = Dimensions.get("window");
   const [newSchool, setNewSchool] = useState<ISchoolInfo>(emptySchool);
   const [newPrincipal, setNewPrincipal] = useState<User>(emptyUser);
-  const [passwords, setPasswords] =
-    useState<UserCreationPasswords>(emptyPasswords);
   const [schoolError, setSchoolError] = useState<string>("");
   const [principalError, setPrincipalError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [createNewSchool] = useCreateNewSchoolMutation();
 
-  const { image, openImageTray, uploadingImage } =
+  const { images, openImageTray, uploadingImage } =
     useImagePicker("schoolImages");
 
   const handleNewSchoolSubmit = async () => {
@@ -45,7 +44,6 @@ const newSchool = () => {
       !newSchoolValidations(
         newSchool,
         newPrincipal,
-        passwords,
         setPrincipalError,
         setSchoolError
       )
@@ -58,13 +56,18 @@ const newSchool = () => {
     try {
       const newUser: AddUser = {
         ...newPrincipal,
-        password: passwords.password,
+        password: process.env.EXPO_PUBLIC_NEW_USER_PASSWORD!,
+        image: images[1],
       };
+
+      const school: Partial<ISchoolInfo> = { ...newSchool, image: images[0] };
 
       await createNewSchool({
         newUser,
-        newSchool,
+        newSchool: school,
       }).unwrap();
+
+      router.push('/(admin)')
     } catch (error: any) {
       setSchoolError(error.description);
       console.error(error);
@@ -74,7 +77,7 @@ const newSchool = () => {
   };
 
   return (
-    <UserPageLayout title="Add New School" route="/(principal)">
+    <UserPageLayout title="Add New School" route="/(admin)">
       <ErrorText error={schoolError} />
 
       <KeyboardAvoidingView
@@ -89,9 +92,9 @@ const newSchool = () => {
           paddingHorizontal: 30,
         }}
       >
-        <ScrollView scrollEnabled showsVerticalScrollIndicator={false}>
+        <ScrollView bounces showsVerticalScrollIndicator={false}>
           <ImageButton
-            image={image}
+            image={images[0]}
             loading={uploadingImage}
             openTray={openImageTray}
           />
@@ -117,6 +120,11 @@ const newSchool = () => {
             </Text>
 
             <ErrorText error={principalError} />
+            <ImageButton
+              image={images[1]}
+              loading={uploadingImage}
+              openTray={openImageTray}
+            />
 
             <InputTextComponent
               label="Principal's First Name: "
@@ -144,26 +152,6 @@ const newSchool = () => {
                 setNewPrincipal({ ...newPrincipal, email: value })
               }
               placeholder="Email"
-            />
-
-            <InputTextComponent
-              label="Principal's Password: "
-              value={passwords.password}
-              onChange={(value) =>
-                setPasswords({ ...passwords, password: value })
-              }
-              isPassword
-              placeholder=""
-            />
-
-            <InputTextComponent
-              label="Confirm Principal's Password: "
-              value={passwords.confirmPassword}
-              onChange={(value) =>
-                setPasswords({ ...passwords, confirmPassword: value })
-              }
-              isPassword
-              placeholder=""
             />
           </View>
         </ScrollView>

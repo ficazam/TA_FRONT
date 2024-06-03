@@ -5,7 +5,6 @@ import { User } from "../types/user.type";
 export const newSchoolValidations = (
   newSchool: ISchoolInfo,
   newPrincipal: User,
-  passwords: UserCreationPasswords,
   setPrincipalError: (error: string) => void,
   setSchoolError: (error: string) => void
 ) => {
@@ -17,9 +16,7 @@ export const newSchoolValidations = (
   if (
     newPrincipal.name.length < 2 ||
     newPrincipal.status.length < 2 ||
-    newPrincipal.email.length < 2 ||
-    passwords.password === "" ||
-    passwords.confirmPassword === ""
+    newPrincipal.email.length < 2
   ) {
     setPrincipalError("Please complete all fields before submitting.");
     return false;
@@ -32,18 +29,6 @@ export const newSchoolValidations = (
     newPrincipal.email.split(".")[1].length < 2
   ) {
     setPrincipalError("Please enter a valid email!");
-    return false;
-  }
-
-  if (passwords.password.length <= 5) {
-    setPrincipalError(
-      "Please enter a stronger password. Passwords must be longer than 5 characters."
-    );
-    return false;
-  }
-
-  if (passwords.password !== passwords.confirmPassword) {
-    setPrincipalError("Passwords don't match!");
     return false;
   }
 

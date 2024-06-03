@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import React from "react";
 import { Pressable, Text, View } from "react-native";
+import ImageCircle from "../parts/ImageCircle";
 
 const Navigation = () => {
   const { user } = useAppSelector((state) => state.userState);
@@ -34,6 +35,10 @@ const Navigation = () => {
         maxHeight: 150,
       }}
     >
+      <View style={{ position: "absolute", left: 20, top: 65 }}>
+        <ImageCircle image={user.image} />
+      </View>
+
       <Text
         style={{
           fontSize: 32,
@@ -44,7 +49,6 @@ const Navigation = () => {
       >
         {user.role.toLocaleUpperCase()}
       </Text>
-
       <Pressable
         onPress={handleLogout}
         style={{

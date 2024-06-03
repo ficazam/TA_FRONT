@@ -55,6 +55,7 @@ const Login = () => {
           email: userInfo.email,
           role: userInfo.role,
           orders: userInfo.orders,
+          image: userInfo.image,
         };
 
         dispatch(setUser(loggedInUser));

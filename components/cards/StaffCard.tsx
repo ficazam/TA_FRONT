@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from "react-native";
+import ImageCircle from "../parts/ImageCircle";
 
 const StaffCard = (props: { user: User }) => {
   const { userColor } = useUserColor();
@@ -40,31 +41,15 @@ const StaffCard = (props: { user: User }) => {
           justifyContent: "flex-start",
         }}
       >
-        <View
-          style={{
-            backgroundColor: Colors.white,
-            padding: 10,
-            borderWidth: 1,
-            borderColor: userColor.color,
-            borderRadius: 100,
-            marginRight: 10,
-          }}
-        >
-          {props.user.image ? (
-            <Image
-              source={props.user.image as ImageSourcePropType}
-              resizeMode="contain"
-            />
-          ) : (
-            <SimpleLineIcons name="user" size={24} color={Colors.black} />
-          )}
-        </View>
+        <ImageCircle image={props.user.image} />
+
         <View
           style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
             alignItems: "flex-start",
+            marginLeft: 10,
           }}
         >
           <Text

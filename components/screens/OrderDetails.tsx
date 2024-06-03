@@ -152,7 +152,8 @@ const OrderDetails = (props: iOrderDetailsProps) => {
           >
             {props.teacher.image ? (
               <Image
-                source={props.teacher.image as ImageSourcePropType}
+                style={{ height: 100, width: 100, objectFit: "fill" }}
+                source={{ uri: props.teacher.image }}
                 resizeMode="contain"
               />
             ) : (

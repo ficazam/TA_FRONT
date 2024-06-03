@@ -1,12 +1,14 @@
 import ErrorText from "@/components/Text/ErrorText";
 import RoleCard from "@/components/cards/RoleCard";
 import ButtonTile from "@/components/input/ButtonTile";
+import ImageButton from "@/components/input/ImageButton";
 import InputTextComponent from "@/components/input/InputTextComponent";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
 import { UserRole, staffRoles } from "@/core/enums/user-role.enum";
 import { UserStatus } from "@/core/enums/user-status.enum";
 import { AddUser, User, emptyUser } from "@/core/types/user.type";
 import { newUserValidations } from "@/core/utils";
+import { useImagePicker } from "@/hooks/useImagePicker";
 import { useAddUserMutation } from "@/store/features/api/user.slice";
 import { useAppSelector } from "@/store/hooks";
 import { router } from "expo-router";
@@ -27,6 +29,7 @@ const newStaff = () => {
   const [newStaff, setNewStaff] = useState<User>(emptyUser);
   const [chosenStaffRole, setChosenStaffRole] = useState<number>(0);
   const [newUserError, setNewUserError] = useState<string>("");
+  const { images, uploadingImage, openImageTray } = useImagePicker("staffImages");
 
   const handleNewUserSubmit = async () => {
     if (!newUserValidations(newStaff, setNewUserError)) {
@@ -42,13 +45,16 @@ const newStaff = () => {
         role: staffRoles[chosenStaffRole].value,
         schoolId: user.schoolId,
         status: UserStatus.Unverified,
+        image: images[0],
       };
+
+      console.log(newUser)
 
       const userItem = await addUser(newUser).unwrap();
 
-      if (userItem) {
-        router.push("/(principal)");
-      }
+      // if (userItem) {
+      //   router.push("/(principal)");
+      // }
     } catch (error: any) {
       setNewUserError(error.description);
       console.error(error);
@@ -73,25 +79,25 @@ const newStaff = () => {
           paddingHorizontal: 20,
         }}
       >
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-        >
-          {staffRoles.map((role, index) => (
-            <RoleCard
-              key={role.value}
-              onPress={() => setChosenStaffRole(index)}
-              title={role.label}
-              isSelected={chosenStaffRole === index}
-            />
-          ))}
-        </View>
-
         <ScrollView scrollEnabled showsVerticalScrollIndicator={false}>
+          <ImageButton image={images[0]} loading={uploadingImage} openTray={openImageTray} />
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              justifyContent: "space-between",
+            }}
+          >
+            {staffRoles.map((role, index) => (
+              <RoleCard
+                key={role.value}
+                onPress={() => setChosenStaffRole(index)}
+                title={role.label}
+                isSelected={chosenStaffRole === index}
+              />
+            ))}
+          </View>
           <InputTextComponent
             label="New User's First Name"
             placeholder="John"

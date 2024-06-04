@@ -35,7 +35,7 @@ export const itemsSlice = createApi({
       >({
         query: ({ schoolId, itemId }) => {
           return {
-            url: `${schoolId}/item/${itemId}`,
+            url: `items/${schoolId}/item/${itemId}`,
             method: "GET",
           };
         },

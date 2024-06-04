@@ -4,6 +4,7 @@ import { useUserColor } from "@/hooks/useUserColor";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import React from "react";
 import { Image, ImageSourcePropType, Text, View } from "react-native";
+import ImageCircle from "../parts/ImageCircle";
 
 interface iInventoryCardProps {
   item: Item;
@@ -31,24 +32,7 @@ const OrderItemCard = (props: iInventoryCardProps) => {
         columnGap: 20,
       }}
     >
-      <View
-        style={{
-          backgroundColor: Colors.white,
-          padding: 10,
-          borderWidth: 1,
-          borderColor: userColor.color,
-          borderRadius: 100,
-        }}
-      >
-        {props.item.image ? (
-          <Image
-            source={props.item.image as ImageSourcePropType}
-            resizeMode="contain"
-          />
-        ) : (
-          <SimpleLineIcons name="ghost" size={32} color={Colors.black} />
-        )}
-      </View>
+      <ImageCircle image={props.item.image} />
 
       <View
         style={{

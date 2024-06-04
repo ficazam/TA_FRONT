@@ -27,14 +27,18 @@ const NewOrderForm = (props: iNewOrderFormProps) => {
     <>
       {props.isLoadingItems && <LoadingScreen />}
 
-      <DatepickerComponent
-        open={props.dateModalOpen}
-        setOpen={props.setDateModalOpen}
-        date={props.deliveryDate}
-        setDate={props.setDeliveryDate}
-      />
+      {!props.isLoadingItems && (
+        <DatepickerComponent
+          open={props.dateModalOpen}
+          setOpen={props.setDateModalOpen}
+          date={props.deliveryDate}
+          setDate={props.setDeliveryDate}
+        />
+      )}
 
-      <ErrorText error={props.submitError} />
+      {!props.isLoadingItems && props.submitError && (
+        <ErrorText error={props.submitError} />
+      )}
 
       {!props.isLoadingItems && props.schoolItems.length <= 0 && (
         <ErrorText error="Error loading items." />

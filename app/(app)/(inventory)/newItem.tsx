@@ -10,9 +10,11 @@ import { newItemValidations } from "@/core/utils";
 import {
   useCreateNewItemMutation,
   useLazyGetAllSchoolItemsQuery,
+  useLazyGetSingleItemQuery,
+  useUpdateItemMutation,
 } from "@/store/features/api/items.slice";
 import { useAppSelector } from "@/store/hooks";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   Dimensions,
@@ -24,6 +26,7 @@ import { useImagePicker } from "@/hooks/useImagePicker";
 import ImageButton from "@/components/input/ImageButton";
 
 const newItem = () => {
+  const { itemId } = useLocalSearchParams();
   const { user } = useAppSelector((state) => state.userState);
   const { width, height } = Dimensions.get("window");
   const [newItem, setNewItem] = useState<Item>(emptyItem);
@@ -32,11 +35,34 @@ const newItem = () => {
   const [itemTypes, setItemTypes] = useState<string[]>([]);
   const [newItemType, setNewItemType] = useState<string>("");
 
-  const { images, uploadingImage, openImageTray } = useImagePicker("itemImages");
+  const { images, uploadingImage, openImageTray } =
+    useImagePicker("itemImages");
 
   const [getItemsQuery, { isLoading: isLoadingItems }] =
     useLazyGetAllSchoolItemsQuery();
+  const [getSingleItemQuery, { isLoading: isLoadingSingleItem }] =
+    useLazyGetSingleItemQuery();
+
   const [createNewItem] = useCreateNewItemMutation();
+  const [updateItem] = useUpdateItemMutation();
+
+  useEffect(() => {
+    if (!itemId) {
+      return;
+    }
+
+    const setItemId: string = typeof itemId === "object" ? itemId[0] : itemId;
+
+    getSingleItemQuery({ schoolId: user.schoolId!, itemId: setItemId }).then(
+      (itemQuery) => {
+        if (!itemQuery || !itemQuery.isSuccess) {
+          return;
+        }
+
+        setNewItem(itemQuery.data.data);
+      }
+    );
+  }, []);
 
   useEffect(() => {
     getItemsQuery({ schoolId: user.schoolId! }).then((itemsQuery) => {
@@ -67,17 +93,22 @@ const newItem = () => {
 
     setLoading(true);
     try {
-      const item: Partial<Item> = {
-        name: newItem.name,
-        type: newItem.type === "New..." ? newItemType : newItem.type,
-        inStock: newItem.inStock,
-        schoolId: user.schoolId!,
-        ordered: 0,
-        isTemporal: newItem.isTemporal,
-        image: images[0] ?? "",
-      };
+      if (itemId) {
+        await updateItem(newItem).unwrap();
+      } else {
+        const item: Partial<Item> = {
+          name: newItem.name,
+          type: newItem.type === "New..." ? newItemType : newItem.type,
+          inStock: newItem.inStock,
+          schoolId: user.schoolId!,
+          ordered: 0,
+          isTemporal: newItem.isTemporal,
+          image: images[0] ?? "",
+        };
 
-      await createNewItem(item).unwrap();
+        await createNewItem(item).unwrap();
+      }
+
       router.push("inventory");
     } catch (error: any) {
       console.error(error);
@@ -90,9 +121,9 @@ const newItem = () => {
   return (
     <UserPageLayout title="Add Item to Inventory" route="/inventory">
       <ErrorText error={submitError} />
-      {isLoadingItems && <LoadingScreen />}
+      {isLoadingItems || (isLoadingSingleItem && <LoadingScreen />)}
 
-      {!isLoadingItems && (
+      {!isLoadingItems && !isLoadingSingleItem && (
         <KeyboardAvoidingView
           enabled
           behavior={Platform.OS === "ios" ? "height" : "padding"}
@@ -107,7 +138,7 @@ const newItem = () => {
           }}
         >
           <ImageButton
-            image={images[0]}
+            image={newItem.image ?? images[0]}
             loading={uploadingImage}
             openTray={openImageTray}
           />

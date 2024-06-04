@@ -152,7 +152,12 @@ const OrderDetails = (props: iOrderDetailsProps) => {
           >
             {props.teacher.image ? (
               <Image
-                style={{ height: 100, width: 100, objectFit: "fill" }}
+                style={{
+                  height: 100,
+                  width: 100,
+                  objectFit: "fill",
+                  borderRadius: 100,
+                }}
                 source={{ uri: props.teacher.image }}
                 resizeMode="contain"
               />
@@ -305,20 +310,28 @@ const OrderDetails = (props: iOrderDetailsProps) => {
             </View>
           </View>
 
-          <View style={{}}>
-            {props.order.status === OrderStatus.Ordered &&
-              props.order.requiresApproval &&
-              !props.order.approved &&
-              (user.role === UserRole.Coordinator ||
-                user.role === UserRole.Inventory) && (
-                <Button
-                  buttonTitle="Deny Order"
-                  onPress={() => handleOrderUpdate(OrderStatus.Denied)}
-                  isLoading={loading}
-                  disabled={loading}
-                />
-              )}
-          </View>
+          {props.order.status === OrderStatus.Ordered &&
+            props.order.requiresApproval &&
+            !props.order.approved &&
+            (user.role === UserRole.Coordinator ||
+              user.role === UserRole.Inventory) && (
+              <Button
+                buttonTitle="Deny Order"
+                onPress={() => handleOrderUpdate(OrderStatus.Denied)}
+                isLoading={loading}
+                disabled={loading}
+              />
+            )}
+
+          {props.order.status === OrderStatus.Ordered &&
+            user.role === UserRole.Teacher && (
+              <Button
+                buttonTitle="Cancel Order"
+                onPress={() => handleOrderUpdate(OrderStatus.Cancelled)}
+                isLoading={loading}
+                disabled={loading}
+              />
+            )}
         </>
       )}
 

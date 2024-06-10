@@ -19,7 +19,7 @@ import { UserRole } from "@/core/enums/user-role.enum";
 import ButtonTile from "../input/ButtonTile";
 import Button from "../input/Button";
 import { OrderStatus } from "@/core/enums/order-status.enum";
-import { useUpdateNewOrderMutation } from "@/store/features/api/orders.slice";
+import { useUpdateOrderMutation } from "@/store/features/api/orders.slice";
 import { Item, emptyItem } from "@/core/types/item.type";
 import OrderItemCard from "../cards/OrderItemCard";
 import { router } from "expo-router";
@@ -42,7 +42,7 @@ const OrderDetails = (props: iOrderDetailsProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [updateError, setUpdateError] = useState<string>("");
 
-  const [updateOrder] = useUpdateNewOrderMutation();
+  const [updateOrder] = useUpdateOrderMutation();
 
   const buttonTitle = () => {
     let buttonTitle = "";

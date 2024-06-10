@@ -60,7 +60,7 @@ export const orderSlice = createApi({
           };
         },
       }),
-      updateNewOrder: builder.mutation<{ success: boolean }, Partial<Order>>({
+      updateOrder: builder.mutation<{ success: boolean }, Partial<Order>>({
         query: (body) => {
           return {
             url: "orders",
@@ -81,5 +81,5 @@ export const {
   useGetSingleOrderQuery,
   useLazyGetSingleOrderQuery,
   useCreateNewOrderMutation,
-  useUpdateNewOrderMutation,
+  useUpdateOrderMutation,
 } = orderSlice;

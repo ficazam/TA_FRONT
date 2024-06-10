@@ -8,7 +8,7 @@ import { UserRole, staffRoles } from "@/core/enums/user-role.enum";
 import { UserStatus } from "@/core/enums/user-status.enum";
 import { AddUser, User, emptyUser } from "@/core/types/user.type";
 import { newUserValidations } from "@/core/utils";
-import { useImagePicker } from "@/hooks/useImagePicker";
+import { useImagePicker } from "@/hooks";
 import { useAddUserMutation } from "@/store/features/api/user.slice";
 import { useAppSelector } from "@/store/hooks";
 import { router } from "expo-router";

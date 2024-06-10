@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
 interface iButtonTileProps {

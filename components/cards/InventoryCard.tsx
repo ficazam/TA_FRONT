@@ -1,6 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import { Item } from "@/core/types/item.type";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import React from "react";
 import { Pressable, Text, View } from "react-native";

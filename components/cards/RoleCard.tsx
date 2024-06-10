@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import { Pressable, Text } from "react-native";
 
 interface iRoleCardProps {

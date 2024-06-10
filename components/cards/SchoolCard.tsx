@@ -1,9 +1,7 @@
 import { Colors } from "@/constants/Colors";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import { Link } from "expo-router";
 import {
-  Image,
-  ImageSourcePropType,
   Pressable,
   Text,
   View,

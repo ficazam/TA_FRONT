@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import { router } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 

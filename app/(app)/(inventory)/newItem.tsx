@@ -22,7 +22,7 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import { useImagePicker } from "@/hooks/useImagePicker";
+import { useImagePicker } from "@/hooks";
 import ImageButton from "@/components/input/ImageButton";
 
 const newItem = () => {

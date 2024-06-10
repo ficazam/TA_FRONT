@@ -13,7 +13,7 @@ import LoadingScreen from "../loading/LoadingScreen";
 import ErrorText from "../Text/ErrorText";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import { useAppSelector } from "@/store/hooks";
 import { UserRole } from "@/core/enums/user-role.enum";
 import ButtonTile from "../input/ButtonTile";

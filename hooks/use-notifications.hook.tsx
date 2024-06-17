@@ -3,8 +3,27 @@ import * as Device from "expo-device";
 import Constants from "expo-constants";
 import { useEffect, useRef, useState } from "react";
 import { Platform } from "react-native";
+import { getToken, deleteToken } from "firebase/messaging";
+import { messaging } from "@/store/firebase.config";
+import { useUpdateUserMutation } from "@/store/features/api/user.slice";
+import { useAppSelector } from "@/store/hooks";
+
+const getMessagingToken = async () => {
+  const oldToken = await getToken(messaging);
+  await deleteToken(messaging);
+
+  const newToken = await getToken(messaging);
+
+  if (oldToken === newToken) {
+    throw new Error("refresh tokens!");
+  }
+
+  return newToken;
+};
 
 export const useNotifications = () => {
+  const { user } = useAppSelector((state) => state.userState);
+  const [updateUser] = useUpdateUserMutation();
   const [pushToken, setPushToken] = useState<
     Notifications.ExpoPushToken | undefined
   >();
@@ -24,6 +43,9 @@ export const useNotifications = () => {
   });
 
   useEffect(() => {
+    getMessagingToken().then((token) =>
+      updateUser({ ...user, notificationToken: token }).unwrap()
+    );
     registerForPushNotificationsAsync().then(
       (token) => token && setPushToken(token)
     );
@@ -34,8 +56,7 @@ export const useNotifications = () => {
       });
 
     responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-      });
+      Notifications.addNotificationResponseReceivedListener((response) => {});
 
     return () => {
       notificationListener.current &&

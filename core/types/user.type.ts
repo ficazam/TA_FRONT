@@ -11,6 +11,7 @@ export interface User {
   schoolId?: string;
   status: UserStatus;
   orders: string[];
+  notificationToken?: string;
 }
 
 export interface AddUser extends Omit<User, "id"> {

@@ -1,14 +1,7 @@
 import { Colors } from "@/constants/Colors";
 import { User } from "@/core/types/user.type";
-import { useUserColor } from "@/hooks/useUserColor";
-import { SimpleLineIcons } from "@expo/vector-icons";
-import {
-  Image,
-  ImageSourcePropType,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { useUserColor } from "@/hooks";
+import { Pressable, Text, View } from "react-native";
 import ImageCircle from "../parts/ImageCircle";
 
 const StaffCard = (props: { user: User }) => {

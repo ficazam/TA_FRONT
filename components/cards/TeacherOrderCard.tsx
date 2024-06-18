@@ -2,7 +2,7 @@ import { Colors } from "@/constants/Colors";
 import { orderIconInformation } from "@/core/constants/order-icons.constant";
 import { OrderStatus } from "@/core/enums/order-status.enum";
 import { Order } from "@/core/types/order.type";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import { useAppSelector } from "@/store/hooks";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { Link } from "expo-router";

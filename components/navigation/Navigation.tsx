@@ -1,6 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import { emptyUser } from "@/core/types/user.type";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import { logout } from "@/store/features/api/authentication/auth-slice";
 import { setUser } from "@/store/features/user.slice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";

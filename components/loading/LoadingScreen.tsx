@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import React from "react";
 import { ActivityIndicator, View } from "react-native";
 

@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { useUserColor } from "@/hooks/useUserColor";
+import { useUserColor } from "@/hooks";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import React from "react";
 import { Image, View } from "react-native";

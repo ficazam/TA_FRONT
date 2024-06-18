@@ -19,7 +19,12 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.felipeicaza.teachersaid",
+      "googleServicesFile": "./teachers-aid-8ac41-firebase-adminsdk-tw202-546eed5a72.json"
     },
     "web": {
       "bundler": "metro",
@@ -38,6 +43,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "4c7d1a9e-a628-48b3-b83d-0ab493152ee0"
+      }
     }
   }
 }

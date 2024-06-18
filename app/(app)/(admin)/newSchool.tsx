@@ -4,14 +4,10 @@ import ImageButton from "@/components/input/ImageButton";
 import InputTextComponent from "@/components/input/InputTextComponent";
 import UserPageLayout from "@/components/navigation/PageTitleNav";
 import { Colors } from "@/constants/Colors";
-import {
-  UserCreationPasswords,
-  emptyPasswords,
-} from "@/core/types/passwords.type";
 import { ISchoolInfo, emptySchool } from "@/core/types/school.type";
 import { AddUser, User, emptyUser } from "@/core/types/user.type";
 import { newSchoolValidations } from "@/core/utils";
-import { useImagePicker } from "@/hooks/useImagePicker";
+import { useImagePicker } from "@/hooks";
 import { useCreateNewSchoolMutation } from "@/store/features/api/schools.slice";
 import { router } from "expo-router";
 import { useState } from "react";
